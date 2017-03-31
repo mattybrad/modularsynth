@@ -1,8 +1,8 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(0,1,2,3,13);
+var vco1 = new VCO(0,91,92,93,13);
 var vca1 = new VCA(4,5,6);
-var noise = new Noise(8);
+var noise = new Noise(1);
 var keyboard = new Keyboard(12,15);
 var out = new Output(7);
 
@@ -32,8 +32,6 @@ function updateConnections(data) {
     }
   }
 
-  console.log(connectionsToBreak);
-
   for(i = 0; i < connectionsToBreak.length; i ++) {
     if(connectionsToBreak[i]) {
       for(j = 0; j < connectionsToBreak[i].length; j++) {
@@ -45,4 +43,25 @@ function updateConnections(data) {
   console.log(allValid?"all connections ok":"check connections");
 }
 
-updateConnections("8-7");
+function getConnections(callback) {
+  var xmlhttp = new XMLHttpRequest();
+
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+      if (xmlhttp.status == 200) {
+        callback(xmlhttp.responseText);
+      } else {
+        console.log('ajax error');
+      }
+    }
+  }
+
+  xmlhttp.open("GET", "http://localhost:3000/connections", true);
+  xmlhttp.send();
+}
+
+setInterval(function(){
+  getConnections(function(data){
+    updateConnections(data);
+  });
+}, 100);

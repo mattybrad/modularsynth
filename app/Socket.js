@@ -66,7 +66,6 @@ class Socket {
       s = Socket._sockets[i];
       connections[s.pin] = s.connectedTo.slice();
     }
-    console.log(connections);
     return connections;
   }
 }
