@@ -1,12 +1,10 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(0,1,2,3);
+var vco1 = new VCO(0,1,2,3,13);
 var vca1 = new VCA(4,5,6);
-var lfo1 = new VCO(8,9,10,11);
+var lfo1 = new VCO(8,9,10,11,14);
+var keyboard = new Keyboard(12);
 var out = new Output(7);
-
-vco1.frequency = 110;
-lfo1.frequency = 1;
 
 function updateConnections(data) {
   var i,j;
@@ -43,4 +41,4 @@ function updateConnections(data) {
   console.log(allValid?"all connections ok":"check connections");
 }
 
-updateConnections("0-5,10-4,6-7");
+updateConnections("0-7,12-13");
