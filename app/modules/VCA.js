@@ -3,6 +3,7 @@ class VCA extends Module {
     super(...pins);
 
     this._gainNode = actx.createGain();
+    this._gainNode.gain.value = 0;
 
     this.addSocket("cv", Socket.IN, this._gainNode.gain);
     this.addSocket("in", Socket.IN, this._gainNode);

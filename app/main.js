@@ -3,7 +3,7 @@ var actx = new AudioContext();
 var vco1 = new VCO(0,1,2,3,13);
 var vca1 = new VCA(4,5,6);
 var lfo1 = new VCO(8,9,10,11,14);
-var keyboard = new Keyboard(12);
+var keyboard = new Keyboard(12,15);
 var out = new Output(7);
 
 function updateConnections(data) {
@@ -41,4 +41,4 @@ function updateConnections(data) {
   console.log(allValid?"all connections ok":"check connections");
 }
 
-updateConnections("0-7,12-13");
+updateConnections("15-4,0-5,6-7,12-13");
