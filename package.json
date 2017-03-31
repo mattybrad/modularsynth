@@ -1,0 +1,23 @@
+{
+  "name": "modularsynth",
+  "version": "1.0.0",
+  "description": "Modular synthesizers are really cool but really expensive. This project is a hybrid software/hardware system, where the sound is created digitally by the Web Audio API in Javascript, but routing/patching between modules is done in hardware, by an Arduino-based system. While there are plenty of soft synths which can be controlled by external hardware devices (keyboard/knobs/sliders, etc), the slightly unique part of this project is being able to detect routing between modules.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattybrad/modularsynth.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mattybrad/modularsynth/issues"
+  },
+  "homepage": "https://github.com/mattybrad/modularsynth#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "serialport": "^4.0.7"
+  }
+}
