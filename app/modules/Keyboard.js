@@ -4,6 +4,7 @@ class Keyboard extends Module {
 
     var cvNode = actx.createGain();
     var gateNode = actx.createGain();
+    gateNode.gain.value = 0;
 
     var bufferSource = actx.createBufferSource();
     var buffer = actx.createBuffer(1, 1, actx.sampleRate);
@@ -14,13 +15,6 @@ class Keyboard extends Module {
     bufferSource.connect(cvNode);
     bufferSource.connect(gateNode);
     bufferSource.start();
-
-    // setInterval(function(){
-    //   var noteNumber = 40 + 12 * Math.floor(Math.random() * 5) - 24;
-    //   var targetFreq = Math.pow(2, (noteNumber - 49) / 12) * 440;
-    //   var outputValue = (targetFreq - 220) / 440;
-    //   cvNode.gain.value = outputValue;
-    // }, 200);
 
     this.addSocket("cv out", Socket.OUT, cvNode);
     this.addSocket("gate out", Socket.OUT, gateNode);
