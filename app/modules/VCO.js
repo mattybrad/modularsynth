@@ -16,4 +16,11 @@ class VCO extends Module {
     }
 
   }
+
+  set frequency(freq) {
+    for(var k in this._oscillators) {
+      if(!this._oscillators.hasOwnProperty(k)) continue;
+      this._oscillators[k].frequency.value = freq;
+    }
+  }
 }
