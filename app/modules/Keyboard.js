@@ -13,7 +13,12 @@ class Keyboard extends Module {
     bufferSource.start();
 
     setInterval(function(){
-      gainNode.gain.value = 300 + 100 * Math.random();
+      //gainNode.gain.value = Math.random();
+      var noteNumber = 40 + 12 * Math.floor(Math.random() * 5) - 24;
+      var targetFreq = Math.pow(2, (noteNumber - 49) / 12) * 440;
+      var outputValue = (targetFreq - 220) / 440;
+      console.log(outputValue);
+      gainNode.gain.value = outputValue;
     }, 200);
 
     this.addSocket("cv out", Socket.OUT, gainNode);

@@ -2,7 +2,10 @@ class VCO extends Module {
   constructor(...pins) {
     super(...pins);
 
-    this._oscillators = {};
+    var cvGain = actx.createGain();
+    cvGain.gain.value = 440;
+
+    var oscillators = {};
     var waveforms = ["square","sawtooth","triangle","sine"];
     var o, w;
     for(var i = 0; i < waveforms.length; i ++) {
@@ -10,12 +13,13 @@ class VCO extends Module {
       o = actx.createOscillator();
       o.type = w;
       o.frequency.value = 220;
+      cvGain.connect(o.frequency);
       this.addSocket(w + " out", Socket.OUT, o);
-      this._oscillators[w] = o;
+      oscillators[w] = o;
       o.start();
     }
 
-    this.addSocket("cv in", Socket.IN, this._oscillators.square.frequency);
+    this.addSocket("cv in", Socket.IN, cvGain);
 
   }
 }
