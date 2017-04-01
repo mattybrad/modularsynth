@@ -1,9 +1,9 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(0,91,92,93,13);
+var vco1 = new VCO(0,91,92,93,2);
 var vca1 = new VCA(4,5,6);
-var noise = new Noise(1);
-var keyboard = new Keyboard(12,15);
+var vcf = new VCF(8,9);
+var keyboard = new Keyboard(3,15);
 var out = new Output(7);
 
 function updateConnections(data) {
@@ -18,7 +18,7 @@ function updateConnections(data) {
     if(c.length == 2) {
       c[0] = parseInt(c[0]);
       c[1] = parseInt(c[1]);
-      console.log(c);
+      //console.log(c);
       res = Socket.testConnection(c[0],c[1]);
       if(!res.valid) allValid = false;
       else if(!res.exists) Socket.makeConnection(c[0], c[1]);
@@ -60,8 +60,14 @@ function getConnections(callback) {
   xmlhttp.send();
 }
 
-setInterval(function(){
-  getConnections(function(data){
-    updateConnections(data);
-  });
-}, 100);
+var useArduino = false;
+
+if(useArduino) {
+  setInterval(function(){
+    getConnections(function(data){
+      updateConnections(data);
+    });
+  }, 1000);
+} else {
+  updateConnections("0-5,15-4,6-8,9-7");
+}

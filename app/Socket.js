@@ -39,7 +39,7 @@ class Socket {
     if(valid) {
       returnObject.out = outSocket.pin;
       returnObject.in = inSocket.pin;
-      returnObject.exists = (outSocket.connectedTo.indexOf(inSocket.pin)>=0);
+      returnObject.exists = (outSocket.connectedTo.indexOf(inSocket.pin)>=0); // this is broken, i think!
     }
     return returnObject;
   }
@@ -48,15 +48,23 @@ class Socket {
     var socket1 = Socket.getSocketFromPin(pin1);
     var socket2 = Socket.getSocketFromPin(pin2);
     socket1.node.connect(socket2.node);
+    console.log("MAKE",pin1,pin2);
+    console.log(socket1.connectedTo);
+    console.log(socket2.connectedTo);
     socket1.connectedTo.push(socket2.pin);
   }
 
   static breakConnection(pin1, pin2) {
+    console.log("BREAK",pin1,pin2);
     var socket1 = Socket.getSocketFromPin(pin1);
     var socket2 = Socket.getSocketFromPin(pin2);
     socket1.node.disconnect(socket2.node);
+    console.log(socket1.connectedTo);
+    console.log(socket2.connectedTo);
     var indexToRemove = socket1.connectedTo.indexOf(pin2);
     socket1.connectedTo.splice(indexToRemove, 1);
+    console.log(socket1.connectedTo);
+    console.log(socket2.connectedTo);
   }
 
   static getConnections() {
