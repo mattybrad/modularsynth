@@ -10,4 +10,10 @@ class Module {
       new Socket(this._pins[this.sockets.length], label, type, node)
     )
   }
+
+  addControl(label, param, min, max) {
+    this.controls.push(
+      new Control(label, param, min, max)
+    )
+  }
 }

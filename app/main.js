@@ -69,5 +69,5 @@ if(useArduino) {
     });
   }, 1000);
 } else {
-  updateConnections("0-5,15-4,6-8,9-7");
+  updateConnections("0-8,9-7");
 }
