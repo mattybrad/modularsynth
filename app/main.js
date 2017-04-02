@@ -1,8 +1,8 @@
 var actx = new AudioContext();
 
 var vco1 = new VCO(0,91,92,93,2);
-var vca1 = new VCA(4,5,6);
-var vcf = new VCF(8,9);
+var vca1 = new VCA(40,50,60);
+var vcf = new VCF(4,5);
 var keyboard = new Keyboard(3,15);
 var out = new Output(7);
 
@@ -10,7 +10,7 @@ function updateConnections(data) {
   var i,j;
   var connectionsToBreak = Socket.getConnections();
 
-  var splitData = data.split(",");
+  var splitData = data; // ...because the source format has changed - tidy this up later
   var allValid = true;
   var c, res;
   for(i = 0; i < splitData.length; i ++) {
@@ -43,31 +43,41 @@ function updateConnections(data) {
   console.log(allValid?"all connections ok":"check connections");
 }
 
+function updateControls(data) {
+  for(var k in data) {
+    if(data.hasOwnProperty(k)) {
+      console.log(data[k]);
+      vcf.controls[0].value = data[k];
+    }
+  }
+}
+
 function getConnections(callback) {
   var xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
       if (xmlhttp.status == 200) {
-        callback(xmlhttp.responseText);
+        callback(JSON.parse(xmlhttp.responseText));
       } else {
         console.log('ajax error');
       }
     }
   }
 
-  xmlhttp.open("GET", "http://localhost:3000/connections", true);
+  xmlhttp.open("GET", "http://localhost:3000/data", true);
   xmlhttp.send();
 }
 
-var useArduino = false;
+var useArduino = true;
 
 if(useArduino) {
   setInterval(function(){
     getConnections(function(data){
-      updateConnections(data);
+      updateConnections(data.connections);
+      updateControls(data.controls);
     });
-  }, 1000);
+  }, 10);
 } else {
   updateConnections("0-8,9-7");
 }
