@@ -47,6 +47,7 @@ class Socket {
   static makeConnection(pin1, pin2) {
     var socket1 = Socket.getSocketFromPin(pin1);
     var socket2 = Socket.getSocketFromPin(pin2);
+    console.log(socket1, socket2);
     socket1.node.connect(socket2.node);
     console.log("MAKE",pin1,pin2);
     console.log(socket1.connectedTo);

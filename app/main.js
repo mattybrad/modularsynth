@@ -1,10 +1,10 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(90,91,92,5,95);
-var vca1 = new VCA(40,50,60);
-var vcf = new VCF(6,9);
-var keyboard = new Keyboard(55,15);
-var out = new Output(2);
+var vco1 = new VCO(1,3,4,2,6);
+//var vca1 = new VCA(40,50,60);
+//var vcf = new VCF(6,9);
+//var keyboard = new Keyboard(55,15);
+var out = new Output(5);
 
 function updateConnections(data) {
   var i,j;
@@ -18,8 +18,9 @@ function updateConnections(data) {
     if(c.length == 2) {
       c[0] = parseInt(c[0]);
       c[1] = parseInt(c[1]);
-      //console.log(c);
+      console.log(c);
       res = Socket.testConnection(c[0],c[1]);
+      console.log(res);
       if(!res.valid) allValid = false;
       else if(!res.exists) Socket.makeConnection(c[0], c[1]);
       else {
@@ -47,7 +48,7 @@ function updateControls(data) {
   for(var k in data) {
     if(data.hasOwnProperty(k)) {
       console.log(data[k]);
-      vcf.controls[0].value = data[k];
+      //vcf.controls[0].value = data[k];
     }
   }
 }
@@ -70,15 +71,15 @@ function getConnections(callback) {
   xmlhttp.send();
 }
 
-var useArduino = false;
+var useArduino = true;
 
 if(useArduino) {
   setInterval(function(){
     getConnections(function(data){
       updateConnections(data.connections);
-      updateControls(data.controls);
+      //updateControls(data.controls);
     });
-  }, 1000);
+  }, 10);
 } else {
   updateConnections(["2-5"]);
 }
