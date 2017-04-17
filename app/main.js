@@ -1,9 +1,9 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(0,91,92,93,2);
+var vco1 = new VCO(0,1,2,3,4);
 var vca1 = new VCA(40,50,60);
-var vcf = new VCF(4,5);
-var keyboard = new Keyboard(3,15);
+var vcf = new VCF(6,9);
+var keyboard = new Keyboard(5,15);
 var out = new Output(7);
 
 function updateConnections(data) {

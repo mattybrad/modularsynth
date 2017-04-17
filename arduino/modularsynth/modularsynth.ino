@@ -34,9 +34,9 @@ void loop() {
     }
   }
   digitalWrite(5,LOW);
-  Serial.print("A0-");
-  Serial.print(analogRead(0));
-  Serial.print("\n");
+  //Serial.print("A0-");
+  //Serial.print(analogRead(0));
+  //Serial.print("\n");
   Serial.println("DONE");
-  delay(10);
+  delay(100);
 }

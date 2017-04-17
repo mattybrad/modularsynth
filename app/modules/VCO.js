@@ -6,7 +6,7 @@ class VCO extends Module {
     cvGain.gain.value = 440;
 
     var oscillators = {};
-    var waveforms = ["square","sawtooth","triangle","sine"];
+    var waveforms = ["sawtooth","square","triangle","sine"];
     var o, w;
     for(var i = 0; i < waveforms.length; i ++) {
       w = waveforms[i];
