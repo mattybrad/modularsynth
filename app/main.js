@@ -1,10 +1,10 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(0,1,2,3,4);
+var vco1 = new VCO(90,91,92,5,95);
 var vca1 = new VCA(40,50,60);
 var vcf = new VCF(6,9);
-var keyboard = new Keyboard(5,15);
-var out = new Output(7);
+var keyboard = new Keyboard(55,15);
+var out = new Output(2);
 
 function updateConnections(data) {
   var i,j;
@@ -58,6 +58,7 @@ function getConnections(callback) {
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
       if (xmlhttp.status == 200) {
+        console.log(xmlhttp.responseText);
         callback(JSON.parse(xmlhttp.responseText));
       } else {
         console.log('ajax error');
@@ -69,7 +70,7 @@ function getConnections(callback) {
   xmlhttp.send();
 }
 
-var useArduino = true;
+var useArduino = false;
 
 if(useArduino) {
   setInterval(function(){
@@ -77,7 +78,7 @@ if(useArduino) {
       updateConnections(data.connections);
       updateControls(data.controls);
     });
-  }, 10);
+  }, 1000);
 } else {
-  updateConnections("0-8,9-7");
+  updateConnections(["2-5"]);
 }

@@ -1,7 +1,7 @@
 var SerialPort = require('serialport');
 var express = require('express');
 
-var port = new SerialPort('COM3', {
+var port = new SerialPort('COM4', {
   parser: SerialPort.parsers.readline('\n')
 });
 
