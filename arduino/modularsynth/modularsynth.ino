@@ -1,7 +1,8 @@
-byte incomingByte;
-byte note;
-byte velocity;
-int action=2; //0 =note off ; 1=note on ; 2= nada
+byte commandByte;
+byte noteByte;
+byte velocityByte;
+byte midiChannel;
+byte midiCommand;
 
 // pins for selecting mux channel for reading
 const int READ_SELECT_1 = 2;
@@ -39,7 +40,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  int i,j;
+  /*int i,j;
   for(i=0;i<8;i++) {
     digitalWrite(WRITE_SELECT_1,bitRead(i,0));
     digitalWrite(WRITE_SELECT_2,bitRead(i,1));
@@ -57,43 +58,19 @@ void loop() {
         }
       }
     }
+  }*/
+  if(Serial1.available()) {
+    noteByte = Serial1.read();
+    if(noteByte == 60) Serial.println("YUP");
   }
+  //while (Serial1.available() > 2){
+   // commandByte = Serial1.read();//read first byte
+    //noteByte = Serial1.read();//read next byte
+    //velocityByte = Serial1.read();//read final byte
+    //midiChannel = commandByte & B00001111;
+    //midiCommand = commandByte & B11110000;
+    //if(noteByte == 60) Serial.println("YEAH");
+    //if(midiCommand == 144) Serial.println(noteByte);
+  //}
   //Serial.println("DONE");
-  if (Serial1.available() > 0) {
-   // read the incoming byte:
-   incomingByte = Serial1.read();
-
-   // wait for as status-byte, channel 1, note on or off
-   if (incomingByte== 144){ // note on message starting starting
-     action=1;
-   }else if (incomingByte== 128){ // note off message starting
-     action=0;
-   }else if (incomingByte== 208){ // aftertouch message starting
-      //not implemented yet
-   }else if (incomingByte== 160){ // polypressure message starting
-      //not implemented yet
-   }else if ( (action==0)&&(note==0) ){ // if we received a "note off", we wait for which note (databyte)
-     note=incomingByte;
-     playNote(note, 0);
-     note=0;
-     velocity=0;
-     action=2;
-   }else if ( (action==1)&&(note==0) ){ // if we received a "note on", we wait for the note (databyte)
-     note=incomingByte;
-   }else if ( (action==1)&&(note!=0) ){ // ...and then the velocity
-     velocity=incomingByte;
-     playNote(note, velocity);
-     note=0;
-     velocity=0;
-     action=0;
-   }else{
-     //nada
-   }
-  }
-  //delay(100);
-}
-
-void playNote(byte note, byte velocity){
-  Serial.println("PLAYED NOTE");
-  Serial.println(note);
 }
