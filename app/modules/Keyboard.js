@@ -3,6 +3,7 @@ class Keyboard extends Module {
     super(...pins);
 
     var cvNode = actx.createGain();
+    this.cvNode = cvNode;
     var gateNode = actx.createGain();
     gateNode.gain.value = 0;
 
@@ -44,5 +45,12 @@ class Keyboard extends Module {
       }
       if(keysDown.length == 0) gateNode.gain.value = 0;
     })
+  }
+
+  set note(value) {
+    var targetFreq = Math.pow(2, (value - 49) / 12) * 440;
+    var outputValue = (targetFreq - 220) / 440;
+    console.log(value);
+    this.cvNode.gain.value = outputValue;
   }
 }

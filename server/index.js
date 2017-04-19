@@ -9,6 +9,7 @@ var connections = [];
 var connectionsQueue = [];
 var controls = [];
 var controlsQueue = [];
+var note = 0, gate = false;
 var firstTime = true; // seemed to be getting some weird data through on first read - little hack to fix it
 port.on('data',function(data){
   if(!firstTime) {
@@ -19,6 +20,8 @@ port.on('data',function(data){
       controlsQueue = [];
     } else {
       if(data.charAt(0) == "A") controlsQueue.push(data.slice(1));
+      else if(data.charAt(0) == "N") note = parseInt(data.slice(1));
+      else if(data.charAt(0) == "G") gate = data.slice(1);
       else connectionsQueue.push(data);
     }
   }
@@ -41,7 +44,9 @@ app.get('/data', function (req, res) {
   }
   var data = {
     connections: connections,
-    controls: controlObject
+    controls: controlObject,
+    note: note,
+    gate: gate
   }
   res.send(JSON.stringify(data));
 });

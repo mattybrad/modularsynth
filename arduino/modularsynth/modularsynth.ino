@@ -28,6 +28,7 @@ void setup() {
   pinMode(WRITE_SELECT_1,OUTPUT);
   pinMode(WRITE_SELECT_2,OUTPUT);
   pinMode(WRITE_SELECT_3,OUTPUT);
+  pinMode(13, OUTPUT);
   Serial.begin(9600);
   Serial1.begin(31250);
 }
@@ -68,7 +69,7 @@ void loop() {
       }
     }
   }
-  if(Serial1.available()) {
+  while(Serial1.available()) {
     serialByte = Serial1.read();
     if(serialByte >= 128) bytesRead = 0;
     if(bytesRead == 0) byte1 = serialByte;
@@ -94,6 +95,7 @@ void loop() {
   Serial.print(currentNote);
   Serial.print("\n");
   Serial.println("DONE");
+  digitalWrite(13, gate);
 }
 
 void updateCurrentNote() {
