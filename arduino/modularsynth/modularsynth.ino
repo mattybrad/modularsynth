@@ -43,9 +43,13 @@ byte byte1;
 byte byte2;
 byte byte3;
 
+bool notes[128];
+
+int currentNote = 0;
+bool gate = false;
+
 void loop() {
-  // put your main code here, to run repeatedly:
-  /*int i,j;
+  int i,j;
   for(i=0;i<8;i++) {
     digitalWrite(WRITE_SELECT_1,bitRead(i,0));
     digitalWrite(WRITE_SELECT_2,bitRead(i,1));
@@ -63,7 +67,7 @@ void loop() {
         }
       }
     }
-  }*/
+  }
   if(Serial1.available()) {
     serialByte = Serial1.read();
     if(serialByte >= 128) bytesRead = 0;
@@ -76,9 +80,29 @@ void loop() {
       midiChannel = byte1 & B00001111;
       midiCommand = byte1 & B11110000;
       if(midiCommand == 144 && bytesRead == 3) {
-        Serial.println(byte2);
+        notes[byte2] = true;
+        updateCurrentNote();
+      }
+      if(midiCommand == 128 && bytesRead == 3) {
+        notes[byte2] = false;
+        updateCurrentNote();
       }
     }
   }
-  //Serial.println("DONE");
+  Serial.println(gate?"G1":"G0");
+  Serial.print("N");
+  Serial.print(currentNote);
+  Serial.print("\n");
+  Serial.println("DONE");
 }
+
+void updateCurrentNote() {
+  gate = false;
+  for(int i = 0; i < 128; i ++) {
+    if(notes[i]) {
+      currentNote = i;
+      gate = true;
+    }
+  }
+}
+
