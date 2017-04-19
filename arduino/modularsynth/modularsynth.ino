@@ -1,9 +1,3 @@
-byte commandByte;
-byte noteByte;
-byte velocityByte;
-byte midiChannel;
-byte midiCommand;
-
 // pins for selecting mux channel for reading
 const int READ_SELECT_1 = 2;
 const int READ_SELECT_2 = 3;
@@ -38,6 +32,17 @@ void setup() {
   Serial1.begin(31250);
 }
 
+byte midiByte;
+byte midiStage;
+byte midiCommand;
+byte midiChannel;
+
+int bytesRead = 0;
+byte serialByte;
+byte byte1;
+byte byte2;
+byte byte3;
+
 void loop() {
   // put your main code here, to run repeatedly:
   /*int i,j;
@@ -60,17 +65,20 @@ void loop() {
     }
   }*/
   if(Serial1.available()) {
-    noteByte = Serial1.read();
-    if(noteByte == 60) Serial.println("YUP");
+    serialByte = Serial1.read();
+    if(serialByte >= 128) bytesRead = 0;
+    if(bytesRead == 0) byte1 = serialByte;
+    else if(bytesRead == 1) byte2 = serialByte;
+    else if(bytesRead == 2) byte3 = serialByte;
+    bytesRead ++;
+    if(bytesRead >= 2) {
+      // check if message makes sense
+      midiChannel = byte1 & B00001111;
+      midiCommand = byte1 & B11110000;
+      if(midiCommand == 144 && bytesRead == 3) {
+        Serial.println(byte2);
+      }
+    }
   }
-  //while (Serial1.available() > 2){
-   // commandByte = Serial1.read();//read first byte
-    //noteByte = Serial1.read();//read next byte
-    //velocityByte = Serial1.read();//read final byte
-    //midiChannel = commandByte & B00001111;
-    //midiCommand = commandByte & B11110000;
-    //if(noteByte == 60) Serial.println("YEAH");
-    //if(midiCommand == 144) Serial.println(noteByte);
-  //}
   //Serial.println("DONE");
 }
