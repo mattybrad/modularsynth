@@ -15,5 +15,7 @@ class VCA extends Module {
     this.addSocket("cv2", Socket.IN, gainNode3);
     this.addSocket("in", Socket.IN, gainNode);
     this.addSocket("out", Socket.OUT, gainNode);
+
+    this.addControl("gain", gainNode.gain, 0, 1);
   }
 }

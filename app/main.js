@@ -49,8 +49,11 @@ function updateConnections(data) {
 function updateControls(data) {
   for(var k in data) {
     if(data.hasOwnProperty(k)) {
-      console.log(data[k]);
       //vcf.controls[0].value = data[k];
+      if(k=="0") {
+        vca1.controls[0].value = data[k];
+        console.log(data[k]);
+      }
     }
   }
 }
@@ -78,12 +81,13 @@ if(useArduino) {
   setInterval(function(){
     getConnections(function(data){
       console.log(data.connections);
-      //data.connections.push("55-56"); // faking the midi connection
+      data.connections.push("55-56"); // faking the midi connection
       updateConnections(data.connections);
-      //updateControls(data.controls);
+      updateControls(data.controls);
+      console.log(data.controls);
       keyboard.note = data.note;
     });
-  }, 1000);
+  }, 1);
 } else {
   updateConnections(["2-5"]);
 }

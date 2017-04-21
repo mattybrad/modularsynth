@@ -56,6 +56,7 @@ void loop() {
     digitalWrite(WRITE_SELECT_2,bitRead(i,1));
     digitalWrite(WRITE_SELECT_3,bitRead(i,2));
     for(j=0;j<8;j++) {
+      checkMidi();
       if(i<j) {
         digitalWrite(READ_SELECT_1,bitRead(j,0));
         digitalWrite(READ_SELECT_2,bitRead(j,1));
@@ -69,6 +70,25 @@ void loop() {
       }
     }
   }
+  //checkMidi();
+  for(byte i = 0; i < 16; i ++) {
+    checkMidi();
+    Serial.print("A");
+    Serial.print(i);
+    Serial.print("-");
+    Serial.print(analogRead(i));
+    Serial.print("\n");
+  }
+  checkMidi();
+  Serial.println(gate?"G1":"G0");
+  Serial.print("N");
+  Serial.print(currentNote);
+  Serial.print("\n");
+  Serial.println("DONE");
+  digitalWrite(13, gate);
+}
+
+void checkMidi() {
   while(Serial1.available()) {
     serialByte = Serial1.read();
     if(serialByte >= 128) bytesRead = 0;
@@ -90,12 +110,6 @@ void loop() {
       }
     }
   }
-  Serial.println(gate?"G1":"G0");
-  Serial.print("N");
-  Serial.print(currentNote);
-  Serial.print("\n");
-  Serial.println("DONE");
-  digitalWrite(13, gate);
 }
 
 void updateCurrentNote() {
