@@ -1,5 +1,6 @@
 class Socket {
   constructor(pin, label, type, node) {
+    this.label = label;
     this.type = type;
     this.node = node;
     this.pin = pin;
@@ -13,9 +14,10 @@ class Socket {
   }
 
   static getSocketFromPin(pin) {
+    console.log("TRYING TO FIND SOCKET FOR PIN "+pin);
     var foundSocket = Socket._sockets.find(function(s) {
       return s.pin == pin;
-    })
+    });
     return foundSocket;
   }
 
