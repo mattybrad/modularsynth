@@ -1,11 +1,11 @@
 var actx = new AudioContext();
 
 var vco1 = new VCO(91,92,93,5,56);
-var vca1 = new VCA(5,4,1,0);
-//var vcf = new VCF(6,9);
-var adsr = new ADSR(7,3);
+var vca1 = new VCA(7,4,1,0);
+var adsr = new ADSR(6,3);
 var keyboard = new Keyboard(55,15);
 var out = new Output(2);
+console.log(Socket._sockets);
 
 function updateConnections(data) {
   var i,j;
@@ -21,8 +21,9 @@ function updateConnections(data) {
       res = Socket.testConnection(c[0],c[1]);
       if(!res.valid) allValid = false;
       else if(!res.exists) {
-        console.log("OUT="+res.out.label);
-        console.log("IN="+res.in.label);
+        console.log("MAKE CONNECTION BETWEEN "+data[i]);
+        console.log("OUT="+res.out);
+        console.log("IN="+res.in);
         Socket.makeConnection(res.out, res.in);
       } else {
         // if connection already existed and still exists, remove it from connectionsToBreak
@@ -76,7 +77,8 @@ var useArduino = true;
 if(useArduino) {
   setInterval(function(){
     getConnections(function(data){
-      data.connections.push("55-56"); // faking the midi connection
+      console.log(data.connections);
+      //data.connections.push("55-56"); // faking the midi connection
       updateConnections(data.connections);
       //updateControls(data.controls);
       keyboard.note = data.note;
