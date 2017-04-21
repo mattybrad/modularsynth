@@ -1,10 +1,10 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(1,3,4,2,56);
-//var vca1 = new VCA(40,50,60);
+var vco1 = new VCO(91,92,93,5,56);
+var vca1 = new VCA(60,61,62);
 //var vcf = new VCF(6,9);
 var keyboard = new Keyboard(55,15);
-var out = new Output(5);
+var out = new Output(2);
 
 function updateConnections(data) {
   var i,j;
@@ -73,7 +73,7 @@ var useArduino = true;
 if(useArduino) {
   setInterval(function(){
     getConnections(function(data){
-      data.connections.push("55-56");
+      data.connections.push("55-55"); // faking the midi connection
       updateConnections(data.connections);
       //updateControls(data.controls);
       keyboard.note = data.note;
