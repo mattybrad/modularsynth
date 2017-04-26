@@ -1,5 +1,10 @@
 var SerialPort = require('serialport');
 var express = require('express');
+var WebSocket = require('ws');
+var wss = new WebSocket.Server({port:3001});
+wss.on('connection', function connection(ws) {
+  ws.send('hello there');
+})
 
 var port = new SerialPort('COM4', {
   parser: SerialPort.parsers.readline('\n')

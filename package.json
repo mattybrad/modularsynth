@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mattybrad/modularsynth#readme",
   "dependencies": {
     "express": "^4.15.2",
-    "serialport": "^4.0.7"
+    "serialport": "^4.0.7",
+    "ws": "^2.3.1"
   }
 }

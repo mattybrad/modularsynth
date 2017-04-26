@@ -7,6 +7,23 @@ var keyboard = new Keyboard(55,15);
 var out = new Output(2);
 console.log(Socket._sockets);
 
+var connection = new WebSocket('ws://localhost:3001', ['soap', 'xmpp']);
+
+// When the connection is open, send some data to the server
+connection.onopen = function () {
+  connection.send('Ping'); // Send the message 'Ping' to the server
+};
+
+// Log errors
+connection.onerror = function (error) {
+  console.log('WebSocket Error ' + error);
+};
+
+// Log messages from the server
+connection.onmessage = function (e) {
+  console.log('Server: ' + e.data);
+};
+
 function updateConnections(data) {
   var i,j;
   var connectionsToBreak = Socket.getConnections();
@@ -75,7 +92,7 @@ function getConnections(callback) {
   xmlhttp.send();
 }
 
-var useArduino = true;
+var useArduino = false;
 
 if(useArduino) {
   setInterval(function(){
