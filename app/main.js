@@ -9,20 +9,27 @@ console.log(Socket._sockets);
 
 var connection = new WebSocket('ws://localhost:3001', ['soap', 'xmpp']);
 
-// When the connection is open, send some data to the server
-connection.onopen = function () {
-  connection.send('Ping'); // Send the message 'Ping' to the server
-};
-
 // Log errors
 connection.onerror = function (error) {
   console.log('WebSocket Error ' + error);
 };
 
-// Log messages from the server
-connection.onmessage = function (e) {
-  console.log('Server: ' + e.data);
-};
+var useArduino = true;
+
+if(useArduino) {
+
+  // do stuff on websocket data received
+  connection.onmessage = function (e) {
+    var data = JSON.parse(e.data);
+    data.connections.push("55-56"); // faking the midi connection
+    updateConnections(data.connections);
+    updateControls(data.controls);
+    console.log(data.controls);
+    keyboard.note = data.note;
+  };
+} else {
+  updateConnections(["2-5"]);
+}
 
 function updateConnections(data) {
   var i,j;
@@ -90,21 +97,4 @@ function getConnections(callback) {
 
   xmlhttp.open("GET", "http://localhost:3000/data", true);
   xmlhttp.send();
-}
-
-var useArduino = false;
-
-if(useArduino) {
-  setInterval(function(){
-    getConnections(function(data){
-      console.log(data.connections);
-      data.connections.push("55-56"); // faking the midi connection
-      updateConnections(data.connections);
-      updateControls(data.controls);
-      console.log(data.controls);
-      keyboard.note = data.note;
-    });
-  }, 1);
-} else {
-  updateConnections(["2-5"]);
 }
