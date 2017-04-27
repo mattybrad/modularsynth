@@ -21,7 +21,7 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    data.connections.push("55-56"); // faking the midi connection
+    //data.connections.push("55-56"); // faking the midi connection
     updateConnections(data.connections);
     updateControls(data.controls);
     console.log(data.controls);
