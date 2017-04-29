@@ -9,7 +9,7 @@ class LFO extends Module {
       w = waveforms[i];
       o = actx.createOscillator();
       o.type = w;
-      o.frequency.value = 5;
+      o.frequency.value = 10;
       this.addSocket(w + " out", Socket.OUT, o);
       oscillators[w] = o;
       o.start();

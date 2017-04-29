@@ -1,9 +1,15 @@
 var actx = new AudioContext();
 
 var vco1 = new VCO(91,92,93,5,56);
+var vco2 = new VCO(20,21,22,23,24);
+var noise = new Noise(25);
+var sampleAndHold = new SampleAndHold(40,41,42);
+
+var vcf1 = new VCF(30,31);
+var lfo1 = new LFO(66,67);
+
 var vca1 = new VCA(7,4,1,0);
 var adsr = new ADSR(6,3);
-var lfo1 = new LFO(66,67);
 var keyboard = new Keyboard(55,15);
 var out = new Output(2);
 
@@ -21,8 +27,16 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    data.connections.push("55-56"); // faking the midi connection
-    data.connections.push("15-6"); // faking the midi connection
+    //data.connections.push("55-56"); // faking midi cv connection
+    //data.connections.push("55-24"); // faking midi cv connection 2
+    data.connections.push("42-56"); // SH to osc frequency
+    data.connections.push("67-40"); // lfo to SH trigger
+    data.connections.push("25-41"); // noise to SH input
+    data.connections.push("15-6"); // faking connection between keyboard gate and adsr gate
+    //data.connections.push("21-1"); // faking connection between vc02 square and vca in
+    data.connections.push("0-30"); // faking connection
+    data.connections.push("31-2"); // faking connection
+    data.connections.push("25-1"); // faking connection
     updateConnections(data.connections);
     updateControls(data.controls);
     keyboard.note = data.note;
@@ -71,6 +85,7 @@ function updateControls(data) {
       //vcf.controls[0].value = data[k];
       if(k=="0") {
         lfo1.controls[0].value = data[k];
+        vcf1.controls[0].value = data[k];
         //console.log(data[k]);
       }
     }

@@ -1,8 +1,10 @@
-class ADSR extends Module {
+class SampleAndHold extends Module {
   constructor(...pins) {
     super(...pins);
 
+    this.sampleNextUpdate = false;
     this.gateOpen = false;
+    this.currentSample = 0;
 
     this.gainNode = actx.createGain();
     this.gainNode.gain.value = 0;
@@ -24,14 +26,25 @@ class ADSR extends Module {
       var inputSample = inputBuffer.getChannelData(0)[0];
       if(inputSample > 0.5) {
         if(!this.gateOpen) {
-          this.triggerStart();
+          this.sampleNextUpdate = true;
           this.gateOpen = true;
         }
       } else {
         if(this.gateOpen) {
-          this.triggerEnd();
           this.gateOpen = false;
         }
+      }
+    }.bind(this);
+
+    // sampling node
+    this.samplingNode = actx.createScriptProcessor(256, 1, 1);
+    this.samplingNode.onaudioprocess = function(ev) {
+      var inputBuffer = ev.inputBuffer;
+      var inputSample = inputBuffer.getChannelData(0)[0];
+      if(this.sampleNextUpdate) {
+        this.gainNode.gain.value = inputSample;
+        this.sampleNextUpdate = false;
+        console.log("sample!", inputSample);
       }
     }.bind(this);
 
@@ -40,28 +53,10 @@ class ADSR extends Module {
     this.dummyNode.gain.value = 0;
     this.dummyNode.connect(actx.destination);
     this.gateNode.connect(this.dummyNode);
+    this.samplingNode.connect(this.dummyNode);
 
-    this.attack = 0.01;
-    this.decay = 0.05;
-    this.sustain = 0.3;
-    this.release = 1;
-
-    this.addSocket("gate", Socket.IN, this.gateNode);
+    this.addSocket("trigger", Socket.IN, this.gateNode);
+    this.addSocket("in", Socket.IN, this.samplingNode);
     this.addSocket("out", Socket.OUT, this.gainNode);
-  }
-
-  triggerStart() {
-    var now = actx.currentTime;
-    this.gainNode.gain.cancelScheduledValues(now);
-    this.gainNode.gain.setValueAtTime(0, now);
-    this.gainNode.gain.linearRampToValueAtTime(1, now + this.attack);
-    this.gainNode.gain.linearRampToValueAtTime(this.sustain, now + this.attack + this.decay);
-  }
-
-  triggerEnd() {
-    var now = actx.currentTime;
-    this.gainNode.gain.cancelScheduledValues(now);
-    this.gainNode.gain.setValueAtTime(this.gainNode.gain.value, now);
-    this.gainNode.gain.linearRampToValueAtTime(0, now + this.release);
   }
 }

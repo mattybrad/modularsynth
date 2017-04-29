@@ -44,7 +44,7 @@ class ADSR extends Module {
     this.attack = 0.01;
     this.decay = 0.05;
     this.sustain = 0.3;
-    this.release = 1;
+    this.release = 0.3;
 
     this.addSocket("gate", Socket.IN, this.gateNode);
     this.addSocket("out", Socket.OUT, this.gainNode);
