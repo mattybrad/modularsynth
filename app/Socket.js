@@ -23,7 +23,6 @@ class Socket {
   static testConnection(pin1, pin2) {
     var socket1 = Socket.getSocketFromPin(pin1);
     var socket2 = Socket.getSocketFromPin(pin2);
-    console.log("TESTING",socket1.pin, socket2.pin);
     var outSocket, inSocket;
     var valid = true;
     if(socket1.type == Socket.OUT && socket2.type == Socket.IN) {
@@ -35,7 +34,6 @@ class Socket {
     } else {
       valid = false;
     }
-    console.log("IN ORDER",outSocket.pin, inSocket.pin);
     var returnObject = {
       valid: valid
     }
@@ -44,14 +42,13 @@ class Socket {
       returnObject.in = inSocket.pin;
       returnObject.exists = (outSocket.connectedTo.indexOf(inSocket.pin)>=0); // this is broken, i think!
     }
-    
+
     return returnObject;
   }
 
   static makeConnection(pin1, pin2) {
     var socket1 = Socket.getSocketFromPin(pin1);
     var socket2 = Socket.getSocketFromPin(pin2);
-    console.log(socket1, socket2);
     socket1.node.connect(socket2.node);
     console.log("MAKE",pin1,pin2);
     console.log(socket1.connectedTo);

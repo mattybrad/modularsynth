@@ -18,7 +18,7 @@ class ADSR extends Module {
     bufferSource.start();
 
     // gate node, detects change in input and triggers stuff
-    this.gateNode = actx.createScriptProcessor(4096, 1, 1);
+    this.gateNode = actx.createScriptProcessor(256, 1, 1);
     this.gateNode.onaudioprocess = function(ev) {
       var inputBuffer = ev.inputBuffer;
       var inputSample = inputBuffer.getChannelData(0)[0];
@@ -35,10 +35,16 @@ class ADSR extends Module {
       }
     }.bind(this);
 
-    this.attack = 0.5;
-    this.decay = 0.1;
-    this.sustain = 0.2;
-    this.release = 1.0;
+    // hack! for now, create a gain node so i've got something to connect the script processor to
+    this.dummyNode = actx.createGain();
+    this.dummyNode.gain.value = 0;
+    this.dummyNode.connect(actx.destination);
+    this.gateNode.connect(this.dummyNode);
+
+    this.attack = 0.01;
+    this.decay = 0.05;
+    this.sustain = 0.3;
+    this.release = 0.3;
 
     this.addSocket("gate", Socket.IN, this.gateNode);
     this.addSocket("out", Socket.OUT, this.gainNode);

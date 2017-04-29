@@ -6,7 +6,6 @@ var adsr = new ADSR(6,3);
 var lfo1 = new LFO(66,67);
 var keyboard = new Keyboard(55,15);
 var out = new Output(2);
-console.log(Socket._sockets);
 
 var connection = new WebSocket('ws://localhost:3001', ['soap', 'xmpp']);
 
@@ -22,11 +21,10 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    //data.connections.push("55-56"); // faking the midi connection
-    data.connections.push("67-7"); // faking the midi connection
+    data.connections.push("55-56"); // faking the midi connection
+    data.connections.push("67-6"); // faking the midi connection
     updateConnections(data.connections);
     updateControls(data.controls);
-    console.log(data.controls);
     keyboard.note = data.note;
   };
 } else {
@@ -47,9 +45,6 @@ function updateConnections(data) {
       res = Socket.testConnection(c[0],c[1]);
       if(!res.valid) allValid = false;
       else if(!res.exists) {
-        console.log("MAKE CONNECTION BETWEEN "+data[i]);
-        console.log("OUT="+res.out);
-        console.log("IN="+res.in);
         Socket.makeConnection(res.out, res.in);
       } else {
         // if connection already existed and still exists, remove it from connectionsToBreak
@@ -68,8 +63,6 @@ function updateConnections(data) {
       }
     }
   }
-
-  console.log(allValid?"all connections ok":"check connections");
 }
 
 function updateControls(data) {
@@ -77,26 +70,9 @@ function updateControls(data) {
     if(data.hasOwnProperty(k)) {
       //vcf.controls[0].value = data[k];
       if(k=="0") {
-        //vca1.controls[0].value = data[k];
+        lfo1.controls[0].value = data[k];
         //console.log(data[k]);
       }
     }
   }
-}
-
-function getConnections(callback) {
-  var xmlhttp = new XMLHttpRequest();
-
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
-      if (xmlhttp.status == 200) {
-        callback(JSON.parse(xmlhttp.responseText));
-      } else {
-        console.log('ajax error');
-      }
-    }
-  }
-
-  xmlhttp.open("GET", "http://localhost:3000/data", true);
-  xmlhttp.send();
 }
