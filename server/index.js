@@ -5,33 +5,19 @@ var wss = new WebSocket.Server({port:3001});
 var testThing;
 var app = express();
 var serverPort = 3000;
-
-// app.get('/data', function (req, res) {
-//   var controlObject = {};
-//   var splitControl;
-//   for(var i = 0; i < controls.length; i ++) {
-//     splitControl = controls[i].split("-");
-//     controlObject[splitControl[0]] = parseFloat(splitControl[1]) / 1023;
-//   }
-//   var data = {
-//     connections: connections,
-//     controls: controlObject,
-//     note: note,
-//     gate: gate
-//   }
-//   res.send(JSON.stringify(data));
-// });
+var port = null; // serial port
 
 app.use(express.static('app'));
 
 app.listen(serverPort, function () {
   console.log('listening')
   wss.on('connection', function connection(ws) {
-    ws.send('connection made');
 
-    var port = new SerialPort('COM4', {
-      parser: SerialPort.parsers.readline('\n')
-    });
+    if(!port) {
+      port = new SerialPort('COM4', {
+        parser: SerialPort.parsers.readline('\n')
+      });
+    }
 
     var connections = [];
     var connectionsQueue = [];
@@ -66,7 +52,9 @@ app.listen(serverPort, function () {
         note: note,
         gate: gate
       }
-      ws.send(JSON.stringify(data));
+      ws.send(JSON.stringify(data), function(err){
+        // is this needed?
+      });
     })
 
   });
