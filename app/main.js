@@ -3,6 +3,7 @@ var actx = new AudioContext();
 var vco1 = new VCO(91,92,93,5,56);
 var vca1 = new VCA(7,4,1,0);
 var adsr = new ADSR(6,3);
+var lfo1 = new LFO(66,67);
 var keyboard = new Keyboard(55,15);
 var out = new Output(2);
 console.log(Socket._sockets);
@@ -22,6 +23,7 @@ if(useArduino) {
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
     //data.connections.push("55-56"); // faking the midi connection
+    data.connections.push("67-7"); // faking the midi connection
     updateConnections(data.connections);
     updateControls(data.controls);
     console.log(data.controls);
