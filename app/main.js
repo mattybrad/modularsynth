@@ -22,7 +22,7 @@ if(useArduino) {
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
     data.connections.push("55-56"); // faking the midi connection
-    data.connections.push("67-6"); // faking the midi connection
+    data.connections.push("15-6"); // faking the midi connection
     updateConnections(data.connections);
     updateControls(data.controls);
     keyboard.note = data.note;

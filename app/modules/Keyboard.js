@@ -50,6 +50,6 @@ class Keyboard extends Module {
   set note(value) {
     var targetFreq = Math.pow(2, (value - 49) / 12) * 440;
     var outputValue = (targetFreq - 220) / 440;
-    this.cvNode.gain.value = outputValue;
+    //this.cvNode.gain.value = outputValue;
   }
 }
