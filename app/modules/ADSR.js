@@ -41,10 +41,10 @@ class ADSR extends Module {
     this.dummyNode.connect(actx.destination);
     this.gateNode.connect(this.dummyNode);
 
-    this.attack = 0.01;
-    this.decay = 0.05;
-    this.sustain = 0.3;
-    this.release = 1;
+    this.attack = 0.5;
+    this.decay = 0.0;
+    this.sustain = 1;
+    this.release = 2;
 
     this.addSocket("gate", Socket.IN, this.gateNode);
     this.addSocket("out", Socket.OUT, this.gainNode);
@@ -53,15 +53,18 @@ class ADSR extends Module {
   triggerStart() {
     var now = actx.currentTime;
     this.gainNode.gain.cancelScheduledValues(now);
-    this.gainNode.gain.setValueAtTime(0, now);
-    this.gainNode.gain.linearRampToValueAtTime(1, now + this.attack);
-    this.gainNode.gain.linearRampToValueAtTime(this.sustain, now + this.attack + this.decay);
+    this.gainNode.gain.setValueAtTime(Math.max(this.gainNode.gain.value, ADSR.ALMOST_ZERO), now);
+    this.gainNode.gain.exponentialRampToValueAtTime(1, now + this.attack);
+    this.gainNode.gain.exponentialRampToValueAtTime(Math.max(this.sustain, ADSR.ALMOST_ZERO), now + this.attack + this.decay);
   }
 
   triggerEnd() {
     var now = actx.currentTime;
     this.gainNode.gain.cancelScheduledValues(now);
-    this.gainNode.gain.setValueAtTime(this.gainNode.gain.value, now);
-    this.gainNode.gain.linearRampToValueAtTime(0, now + this.release);
+    this.gainNode.gain.setValueAtTime(Math.max(this.gainNode.gain.value, ADSR.ALMOST_ZERO), now);
+    this.gainNode.gain.exponentialRampToValueAtTime(ADSR.ALMOST_ZERO, now + this.release);
+    this.gainNode.gain.setValueAtTime(0, now + this.release);
   }
 }
+
+ADSR.ALMOST_ZERO = 0.000001;
