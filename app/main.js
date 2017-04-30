@@ -36,7 +36,6 @@ if(useArduino) {
     data.connections.push("0-30"); // faking connection
     data.connections.push("31-60"); // faking connection
     data.connections.push("61-50"); // faking connection
-    data.connections.push("31-50"); // faking connection
     data.connections.push("51-2"); // faking connection
     updateConnections(data.connections);
     updateControls(data.controls);
