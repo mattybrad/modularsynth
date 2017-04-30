@@ -41,7 +41,7 @@ class ADSR extends Module {
     this.dummyNode.connect(actx.destination);
     this.gateNode.connect(this.dummyNode);
 
-    this.attack = 0.5;
+    this.attack = 0.01;
     this.decay = 0.0;
     this.sustain = 1;
     this.release = 2;

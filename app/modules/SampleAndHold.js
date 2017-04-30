@@ -44,7 +44,6 @@ class SampleAndHold extends Module {
       if(this.sampleNextUpdate) {
         this.gainNode.gain.value = inputSample;
         this.sampleNextUpdate = false;
-        console.log("sample!", inputSample);
       }
     }.bind(this);
 

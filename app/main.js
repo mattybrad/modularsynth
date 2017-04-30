@@ -5,10 +5,9 @@ var vco2 = new VCO(20,21,22,23,24);
 var noise = new Noise(25);
 var sampleAndHold = new SampleAndHold(40,41,42);
 var bitCrusher = new BitCrusher(50,51);
-
 var vcf1 = new VCF(30,31);
+var delay = new Delay(60,61);
 var lfo1 = new LFO(66,67);
-
 var vca1 = new VCA(7,4,1,0);
 var adsr = new ADSR(6,3);
 var keyboard = new Keyboard(55,15);
@@ -35,6 +34,8 @@ if(useArduino) {
     data.connections.push("25-41"); // noise to SH input
     data.connections.push("15-6"); // faking connection between keyboard gate and adsr gate
     data.connections.push("0-30"); // faking connection
+    data.connections.push("31-60"); // faking connection
+    data.connections.push("61-50"); // faking connection
     data.connections.push("31-50"); // faking connection
     data.connections.push("51-2"); // faking connection
     updateConnections(data.connections);

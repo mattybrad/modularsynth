@@ -8,7 +8,7 @@ class BitCrusher extends Module {
       var inputData = inputBuffer.getChannelData(0);
       var outputData = ev.outputBuffer.getChannelData(0);
       for(var sample = 0; sample < inputBuffer.length; sample++) {
-        outputData[sample] = Math.floor(inputData[sample] * 32) / 32;
+        outputData[sample] = Math.floor(inputData[sample] * 2) / 2;
       }
     }.bind(this);
 
