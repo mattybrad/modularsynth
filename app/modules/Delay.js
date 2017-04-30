@@ -6,7 +6,7 @@ class Delay extends Module {
     this.outputNode = actx.createGain();
 
     this.feedbackNode = actx.createGain();
-    this.feedbackNode.gain.value = 0.95;
+    this.feedbackNode.gain.value = 0.8;
 
     this.delayNode = actx.createDelay(5);
     this.inputNode.connect(this.delayNode);
@@ -14,7 +14,7 @@ class Delay extends Module {
     this.feedbackNode.connect(this.delayNode);
     this.delayNode.connect(this.outputNode);
     this.inputNode.connect(this.outputNode)
-    this.delayNode.delayTime.value = 0.5;
+    this.delayNode.delayTime.value = 1;
     console.log(this.delayNode);
 
     this.addSocket("in", Socket.IN, this.inputNode);

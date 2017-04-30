@@ -4,7 +4,7 @@ class VCF extends Module {
 
     var filterNode = actx.createBiquadFilter();
     filterNode.frequency.value = 500;
-    filterNode.Q.value = 20;
+    filterNode.Q.value = 15;
 
     //this.addSocket("cv", Socket.IN, filterNode.freq);
     this.addControl("frequency", filterNode.frequency, 20, 10000);

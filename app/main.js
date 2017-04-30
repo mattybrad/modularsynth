@@ -33,10 +33,10 @@ if(useArduino) {
     data.connections.push("67-40"); // lfo to SH trigger
     data.connections.push("25-41"); // noise to SH input
     data.connections.push("15-6"); // faking connection between keyboard gate and adsr gate
-    data.connections.push("0-30"); // faking connection
-    data.connections.push("31-60"); // faking connection
+    data.connections.push("0-60"); // faking connection
+    data.connections.push("31-2"); // faking connection
     data.connections.push("61-50"); // faking connection
-    data.connections.push("51-2"); // faking connection
+    data.connections.push("51-30"); // faking connection
     updateConnections(data.connections);
     updateControls(data.controls);
     keyboard.note = data.note;
