@@ -27,15 +27,14 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    //data.connections.push("55-56"); // faking midi cv connection
+    data.connections.push("55-56"); // faking midi cv connection
     //data.connections.push("55-24"); // faking midi cv connection 2
-    data.connections.push("42-56"); // SH to osc frequency
-    data.connections.push("67-40"); // lfo to SH trigger
-    data.connections.push("25-41"); // noise to SH input
+    //data.connections.push("42-56"); // SH to osc frequency
+    //data.connections.push("67-40"); // lfo to SH trigger
+    //data.connections.push("25-41"); // noise to SH input
     data.connections.push("15-6"); // faking connection between keyboard gate and adsr gate
-    data.connections.push("0-60"); // faking connection
+    data.connections.push("0-50"); // faking connection
     data.connections.push("31-2"); // faking connection
-    data.connections.push("61-50"); // faking connection
     data.connections.push("51-30"); // faking connection
     updateConnections(data.connections);
     updateControls(data.controls);
