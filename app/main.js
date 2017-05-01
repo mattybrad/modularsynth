@@ -30,10 +30,13 @@ if(useArduino) {
     var data = JSON.parse(e.data);
     //data.connections.push("55-56"); // faking midi cv connection
     data.connections.push("70-56"); // faking midi cv connection
+    data.connections.push("70-24"); // faking midi cv connection
+    data.connections.push("23-1"); // faking midi cv connection
     data.connections.push("71-6"); // faking connection between keyboard gate and adsr gate
-    data.connections.push("0-50"); // faking connection
+    //data.connections.push("0-50"); // faking connection
     data.connections.push("31-2"); // faking connection
-    data.connections.push("51-30"); // faking connection
+    //data.connections.push("51-30"); // faking connection
+    data.connections.push("0-30"); // faking connection
     updateConnections(data.connections);
     updateControls(data.controls);
     keyboard.note = data.note;

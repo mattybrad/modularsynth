@@ -4,6 +4,9 @@ class Control {
     this._min = min;
     this._max = max;
     this._range = max - min;
+    this.setYet = false;
+    this.value = 0.5;
+    this.setYet = false;
   }
 
   set value(value) {
@@ -11,7 +14,12 @@ class Control {
     var now = actx.currentTime;
     var adjustedValue = this._min + value * this._range;
     this._param.cancelScheduledValues(now);
-    this._param.setValueAtTime(this._param.value, now);
-    this._param.linearRampToValueAtTime(adjustedValue, now + 0.2);
+    if(this.setYet) {
+      this._param.setValueAtTime(this._param.value, now);
+      this._param.linearRampToValueAtTime(adjustedValue, now + 0.2);
+    } else {
+      this._param.setValueAtTime(adjustedValue, now);
+      this.setYet = true;
+    }
   }
 }
