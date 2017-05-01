@@ -20,15 +20,16 @@ class Keyboard extends Module {
     this.addSocket("cv out", Socket.OUT, cvNode);
     this.addSocket("gate out", Socket.OUT, gateNode);
 
-    var keyOrder = "\\azsxcfvgbhnmk,l./'";
+    var keyOrder = "\\azxdcfvbhnjmk,.";
     var keysDown = [];
 
     document.addEventListener("keydown", function(ev){
       var keyIndex = keyOrder.indexOf(ev.key);
       if(keyIndex >= 0) {
         gateNode.gain.value = 1;
-        var noteNumber = keyIndex + 3 + 1 * 12;
+        var noteNumber = keyIndex + 2 * 12;
         var outputValue = noteNumber / 12;
+        console.log(outputValue);
         cvNode.gain.value = outputValue;
         if(keysDown.indexOf(keyIndex)==-1) {
           keysDown.push(keyIndex);
