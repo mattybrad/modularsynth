@@ -10,3 +10,5 @@ The hardware part of this project requires the following parts:
 * Several SN74HC165N (or similar) shift registers (parallel in, serial out)
 * A bunch of resistors
 * A bunch of wires
+
+(N.B. This document is currently out of date)

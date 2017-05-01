@@ -7,7 +7,7 @@ class Noise extends Module {
     var buffer = actx.createBuffer(1, bufferSize, actx.sampleRate);
     var bufferData = buffer.getChannelData(0);
     for(var i = 0; i < bufferSize; i ++) {
-      bufferData[i] = Math.random();
+      bufferData[i] = 1 - 2 * Math.random();
     }
     bufferSource.buffer = buffer;
     bufferSource.loop = true;

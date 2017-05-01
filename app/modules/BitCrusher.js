@@ -7,7 +7,7 @@ class BitCrusher extends Module {
     var lastSample = 0;
     var nextSampleFraction = 1;
 
-    this.crusherNode = actx.createScriptProcessor(4096, 1, 1);
+    this.crusherNode = actx.createScriptProcessor(512, 1, 1);
     this.crusherNode.onaudioprocess = function(ev) {
       var inputBuffer = ev.inputBuffer;
       var inputData = inputBuffer.getChannelData(0);
