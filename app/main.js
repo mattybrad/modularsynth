@@ -83,8 +83,8 @@ function updateControls(data) {
     if(data.hasOwnProperty(k)) {
       //vcf.controls[0].value = data[k];
       if(k=="0") {
-        lfo1.controls[0].value = data[k];
-        vcf1.controls[0].value = data[k];
+        vco1.controls[0].value = data[k];
+        vco2.controls[0].value = data[k];
         //console.log(data[k]);
       }
     }

@@ -23,6 +23,10 @@ class VCO extends Module {
       }
     }.bind(this);
 
+    var tuningNode = actx.createConstantSource();
+    tuningNode.start();
+    tuningNode.connect(cvAdjustmentNode);
+
     var waveforms = ["sawtooth","square","triangle","sine"];
     this.oscillators = {};
     var o, w;
@@ -37,15 +41,10 @@ class VCO extends Module {
       o.start();
     }
 
-    this.addSocket("cv in", Socket.IN, cvAdjustmentNode);
+    this.addSocket("cv1 in", Socket.IN, cvAdjustmentNode);
+    this.addSocket("cv2 in", Socket.IN, cvAdjustmentNode);
 
-  }
+    this.addControl("tuning", tuningNode.offset, -1, 1);
 
-  set frequency(value) {
-    for(var k in this.oscillators) {
-      if(this.oscillators.hasOwnProperty(k)) {
-
-      }
-    }
   }
 }
