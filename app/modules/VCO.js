@@ -28,10 +28,15 @@ class VCO extends Module {
     tuningNode.start();
     tuningNode.connect(cvAdjustmentNode);
 
+    var rangeNode = actx.createConstantSource();
+    rangeNode.offset.value = 0;
+    rangeNode.start();
+    rangeNode.connect(cvAdjustmentNode);
+
     var cv2Gain = actx.createGain();
     cv2Gain.connect(cvAdjustmentNode);
 
-    var waveforms = ["sawtooth","square","triangle","sine"];
+    var waveforms = ["sawtooth","triangle","sine","square"];
     this.oscillators = {};
     var o, w;
     for(var i = 0; i < waveforms.length; i ++) {
@@ -48,7 +53,8 @@ class VCO extends Module {
     this.addSocket("cv1 in", Socket.IN, cvAdjustmentNode);
     this.addSocket("cv2 in", Socket.IN, cv2Gain);
 
-    this.addControl("tuning", tuningNode.offset, -1, 1);
+    this.addControl("range", rangeNode.offset, -3, 3);
+    this.addControl("tuning", tuningNode.offset, -0.2, 0.2);
     this.addControl("cv2 gain", cv2Gain.gain, 0, 1);
 
   }

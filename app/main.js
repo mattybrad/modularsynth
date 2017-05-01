@@ -28,10 +28,6 @@ if(useArduino) {
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
     data.connections.push("55-56"); // faking midi cv connection
-    //data.connections.push("55-24"); // faking midi cv connection 2
-    //data.connections.push("42-56"); // SH to osc frequency
-    data.connections.push("66-94"); // lfo to vco1 cv2
-    //data.connections.push("25-41"); // noise to SH input
     data.connections.push("15-6"); // faking connection between keyboard gate and adsr gate
     data.connections.push("0-50"); // faking connection
     data.connections.push("31-2"); // faking connection
@@ -83,8 +79,7 @@ function updateControls(data) {
     if(data.hasOwnProperty(k)) {
       //vcf.controls[0].value = data[k];
       if(k=="0") {
-        lfo1.controls[0].value = data[k];
-        vco1.controls[1].value = data[k];
+        vco1.controls[0].value = data[k];
         //console.log(data[k]);
       }
     }

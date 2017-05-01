@@ -42,9 +42,9 @@ class ADSR extends Module {
     this.gateNode.connect(this.dummyNode);
 
     this.attack = 0.01;
-    this.decay = 0.0;
-    this.sustain = 1;
-    this.release = 2;
+    this.decay = 0.01;
+    this.sustain = 0.3;
+    this.release = 0.3;
 
     this.addSocket("gate", Socket.IN, this.gateNode);
     this.addSocket("out", Socket.OUT, this.gainNode);
