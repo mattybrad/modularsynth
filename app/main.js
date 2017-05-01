@@ -30,8 +30,8 @@ if(useArduino) {
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
     data.connections.push("5-2");
-    data.connections.push("67-80");
-    data.connections.push("81-56");
+    data.connections.push("67-94");
+    data.connections.push("55-56");
 
     updateConnections(data.connections);
     updateControls(data.controls);
@@ -80,6 +80,7 @@ function updateControls(data) {
     if(data.hasOwnProperty(k)) {
       //vcf.controls[0].value = data[k];
       if(k=="0") {
+        vco1.controls[2].value = data[k];
         lfo1.controls[0].value = data[k];
         //console.log(data[k]);
       }

@@ -55,7 +55,7 @@ class VCO extends Module {
 
     this.addControl("range", rangeNode.offset, -5, 5);
     this.addControl("tuning", tuningNode.offset, -0.2, 0.2);
-    this.addControl("cv2 gain", cv2Gain.gain, 0, 1);
+    this.addControl("cv2 gain", cv2Gain.gain, 0, 1, "square");
 
   }
 }

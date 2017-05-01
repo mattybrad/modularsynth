@@ -1,9 +1,10 @@
 class Control {
-  constructor(label, param, min, max) {
+  constructor(label, param, min, max, curve) {
     this._param = param;
     this._min = min;
     this._max = max;
     this._range = max - min;
+    this._curve = curve;
     this.setYet = false;
     this.value = 0.5;
     this.setYet = false;
@@ -11,6 +12,7 @@ class Control {
 
   set value(value) {
     value = Math.max(0, Math.min(1, value));
+    if(this._curve == "square") value = value * value;
     var now = actx.currentTime;
     var adjustedValue = this._min + value * this._range;
     this._param.cancelScheduledValues(now);

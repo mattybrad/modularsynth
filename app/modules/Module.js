@@ -11,9 +11,9 @@ class Module {
     )
   }
 
-  addControl(label, param, min, max) {
+  addControl(label, param, min, max, curve) {
     this.controls.push(
-      new Control(label, param, min, max)
+      new Control(label, param, min, max, curve)
     )
   }
 }
