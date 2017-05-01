@@ -8,6 +8,7 @@ var bitCrusher = new BitCrusher(50,51);
 var vcf1 = new VCF(30,31);
 var delay = new Delay(60,61);
 var lfo1 = new LFO(66,67);
+var sequencer = new Sequencer(70,71);
 var vca1 = new VCA(7,4,1,0);
 var adsr = new ADSR(6,3);
 var keyboard = new Keyboard(55,15);
@@ -27,8 +28,9 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    data.connections.push("55-56"); // faking midi cv connection
-    data.connections.push("15-6"); // faking connection between keyboard gate and adsr gate
+    //data.connections.push("55-56"); // faking midi cv connection
+    data.connections.push("70-56"); // faking midi cv connection
+    data.connections.push("71-6"); // faking connection between keyboard gate and adsr gate
     data.connections.push("0-50"); // faking connection
     data.connections.push("31-2"); // faking connection
     data.connections.push("51-30"); // faking connection
