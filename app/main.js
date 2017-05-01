@@ -1,7 +1,7 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(91,92,93,5,56);
-var vco2 = new VCO(20,21,22,23,24);
+var vco1 = new VCO(91,92,93,5,56,94);
+var vco2 = new VCO(20,21,22,23,24,26);
 var noise = new Noise(25);
 var sampleAndHold = new SampleAndHold(40,41,42);
 var bitCrusher = new BitCrusher(50,51);
@@ -30,7 +30,7 @@ if(useArduino) {
     data.connections.push("55-56"); // faking midi cv connection
     //data.connections.push("55-24"); // faking midi cv connection 2
     //data.connections.push("42-56"); // SH to osc frequency
-    //data.connections.push("67-40"); // lfo to SH trigger
+    data.connections.push("66-94"); // lfo to vco1 cv2
     //data.connections.push("25-41"); // noise to SH input
     data.connections.push("15-6"); // faking connection between keyboard gate and adsr gate
     data.connections.push("0-50"); // faking connection
@@ -83,8 +83,8 @@ function updateControls(data) {
     if(data.hasOwnProperty(k)) {
       //vcf.controls[0].value = data[k];
       if(k=="0") {
-        vco1.controls[0].value = data[k];
-        vco2.controls[0].value = data[k];
+        lfo1.controls[0].value = data[k];
+        vco1.controls[1].value = data[k];
         //console.log(data[k]);
       }
     }

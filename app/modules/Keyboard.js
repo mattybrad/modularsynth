@@ -27,11 +27,8 @@ class Keyboard extends Module {
       var keyIndex = keyOrder.indexOf(ev.key);
       if(keyIndex >= 0) {
         gateNode.gain.value = 1;
-        var noteNumber = keyIndex + 3 + 2 * 12;
-        var targetFreq = Math.pow(2, (noteNumber - 49) / 12) * 440;
-        var outputValue = (targetFreq - 220) / 440;
-        outputValue = noteNumber / 12;
-        console.log(outputValue);
+        var noteNumber = keyIndex + 3 + 1 * 12;
+        var outputValue = noteNumber / 12;
         cvNode.gain.value = outputValue;
         if(keysDown.indexOf(keyIndex)==-1) {
           keysDown.push(keyIndex);
@@ -50,8 +47,6 @@ class Keyboard extends Module {
   }
 
   set note(value) {
-    var targetFreq = Math.pow(2, (value - 49) / 12) * 440;
-    var outputValue = (targetFreq - 220) / 440;
     //this.cvNode.gain.value = outputValue;
   }
 }
