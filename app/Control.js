@@ -8,6 +8,10 @@ class Control {
 
   set value(value) {
     value = Math.max(0, Math.min(1, value));
-    this._param.value = this._min + value * this._range;
+    var now = actx.currentTime;
+    var adjustedValue = this._min + value * this._range;
+    this._param.cancelScheduledValues(now);
+    this._param.setValueAtTime(this._param.value, now);
+    this._param.linearRampToValueAtTime(adjustedValue, now + 0.2);
   }
 }
