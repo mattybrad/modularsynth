@@ -3,9 +3,9 @@ class BitCrusher extends Module {
     super(...pins);
 
     var resolution = Math.pow(2, 2);
-    var sampleDivider = 1;
+    var sampleDivider = 1/16;
     var lastSample = 0;
-    var nextSampleFraction = 1/15;
+    var nextSampleFraction = 1;
 
     this.crusherNode = actx.createScriptProcessor(512, 1, 1);
     this.crusherNode.onaudioprocess = function(ev) {
