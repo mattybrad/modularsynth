@@ -36,7 +36,7 @@ class VCO extends Module {
     var cv2Gain = actx.createGain();
     cv2Gain.connect(cvAdjustmentNode);
 
-    var waveforms = ["sawtooth","triangle","sine","square"];
+    var waveforms = ["sawtooth","square","triangle","sine"];
     this.oscillators = {};
     var o, w;
     for(var i = 0; i < waveforms.length; i ++) {

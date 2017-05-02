@@ -1,19 +1,68 @@
 var actx = new AudioContext();
 
-var vco1 = new VCO(91,92,93,5,56,94);
-var vco2 = new VCO(20,21,22,23,24,26);
-var noise = new Noise(25);
-var sampleAndHold = new SampleAndHold(40,41,42);
-var bitCrusher = new BitCrusher(50,51);
-var vcf1 = new VCF(30,31,32);
-var delay = new Delay(60,61);
-var quantizer = new Quantizer(80,81);
-var lfo1 = new LFO(65,66,67);
-var sequencer = new Sequencer(70,71);
-var vca1 = new VCA(7,4,1,0);
-var adsr = new ADSR(6,3);
-var keyboard = new Keyboard(55,15);
-var out = new Output(2);
+var vco1 = new VCO(
+  VCO1_SAW,
+  VCO1_SQUARE,
+  VCO1_TRIANGLE,
+  VCO1_SINE,
+  VCO1_CV1,
+  VCO1_CV2
+);
+var vco2 = new VCO(
+  VCO2_SAW,
+  VCO2_SQUARE,
+  VCO2_TRIANGLE,
+  VCO2_SINE,
+  VCO2_CV1,
+  VCO2_CV2
+);
+var noise = new Noise(NOISE_OUT);
+var sampleAndHold = new SampleAndHold(
+  SH_TRIGGER,
+  SH_IN,
+  SH_OUT
+);
+var bitCrusher = new BitCrusher(
+  CRUSHER_IN,
+  CRUSHER_OUT
+);
+var vcf1 = new VCF(
+  VCF1_CV,
+  VCF1_IN,
+  VCF1_OUT
+);
+var delay = new Delay(
+  DELAY_IN,
+  DELAY_OUT
+);
+var quantizer = new Quantizer(
+  QUANTIZER_IN,
+  QUANTIZER_OUT
+);
+var lfo1 = new LFO(
+  LFO1_CV,
+  LFO1_SQUARE,
+  LFO1_SINE
+);
+var sequencer = new Sequencer(
+  SEQUENCER_CV,
+  SEQUENCER_GATE
+);
+var vca1 = new VCA(
+  VCA1_CV1,
+  VCA1_CV2,
+  VCA1_IN,
+  VCA1_OUT
+);
+var adsr = new ADSR(
+  ADSR1_GATE,
+  ADSR1_OUT
+);
+var keyboard = new Keyboard(
+  MIDI_CV,
+  MIDI_GATE
+);
+var out = new Output(OUTPUT_IN);
 
 var connection = new WebSocket('ws://localhost:3001', ['soap', 'xmpp']);
 
@@ -42,11 +91,10 @@ if(useArduino) {
   var data = {
     connections: []
   }
-  data.connections.push("5-2");
-  data.connections.push("67-80");
-  data.connections.push("81-56");
+  data.connections.push([VCO1_TRIANGLE, OUTPUT_IN].join("-"));
+  data.connections.push([LFO1_SINE, VCO1_CV1].join("-"));
   updateConnections(data.connections);
-  lfo1.controls[0].value = 0.05;
+  lfo1.controls[0].value = 0.3;
 }
 
 function updateConnections(data) {
