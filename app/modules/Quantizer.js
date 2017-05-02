@@ -3,7 +3,7 @@ class Quantizer extends Module {
     super(...pins);
 
     var quantizerNode = actx.createScriptProcessor(512, 1, 1);
-    var quantizeValue = 3; // 12 notes per octave
+    var quantizeValue = 12 * 5; // 12 notes per octave, 5 octaves per "volt"
 
     quantizerNode.onaudioprocess = function(ev) {
       var inputBuffer = ev.inputBuffer;

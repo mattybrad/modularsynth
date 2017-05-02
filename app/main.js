@@ -43,8 +43,10 @@ if(useArduino) {
     connections: []
   }
   data.connections.push("5-2");
-  data.connections.push("55-56");
+  data.connections.push("67-80");
+  data.connections.push("81-56");
   updateConnections(data.connections);
+  lfo1.controls[0].value = 0.05;
 }
 
 function updateConnections(data) {

@@ -19,7 +19,7 @@ class VCO extends Module {
       var inputData = inputBuffer.getChannelData(0);
       var outputData = ev.outputBuffer.getChannelData(0);
       for(var sample = 0; sample < inputBuffer.length; sample++) {
-        outputData[sample] = 55 * Math.pow(2, inputData[sample]);
+        outputData[sample] = 55 * Math.pow(2, inputData[sample] * 5);
       }
     }.bind(this);
 
