@@ -2,7 +2,7 @@ class Sequencer extends Module {
   constructor(...pins) {
     super(...pins);
 
-    this.steps = [2, 2.15, 2.2, 2.3, 2.45, 2.55, 2.6, 2.75, 2.8];
+    this.steps = [0, 0.1, 0.2, 0.3];
     this.currentStep = 0;
 
     this.cvNode = actx.createConstantSource();
@@ -12,7 +12,7 @@ class Sequencer extends Module {
     this.gateNode.start();
 
     // temporary, not accurate
-    setInterval(this.doStep.bind(this), 200);
+    setInterval(this.doStep.bind(this), 1000);
 
     this.addSocket("cv out", Socket.OUT, this.cvNode);
     this.addSocket("gate out", Socket.OUT, this.gateNode);

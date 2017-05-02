@@ -5,6 +5,11 @@ class LFO extends Module {
     var frequencyNode = actx.createConstantSource();
     frequencyNode.start();
 
+    var cvNode = actx.createGain();
+    cvNode.connect(frequencyNode.offset);
+
+    this.addSocket("cv in", Socket.IN, cvNode);
+
     var oscillators = {};
     var waveforms = ["square","sine"];
     var o, w;
@@ -19,7 +24,8 @@ class LFO extends Module {
       o.start();
     }
 
-    this.addControl("frequency", frequencyNode.offset, 0.01, 200, "square");
+    this.addControl("frequency", frequencyNode.offset, 0.01, 20, "square");
+    this.addControl("cv", cvNode.gain, 0, 20, "square");
 
   }
 }

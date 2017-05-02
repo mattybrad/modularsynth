@@ -5,10 +5,10 @@ var vco2 = new VCO(20,21,22,23,24,26);
 var noise = new Noise(25);
 var sampleAndHold = new SampleAndHold(40,41,42);
 var bitCrusher = new BitCrusher(50,51);
-var vcf1 = new VCF(30,31);
+var vcf1 = new VCF(30,31,32);
 var delay = new Delay(60,61);
 var quantizer = new Quantizer(80,81);
-var lfo1 = new LFO(66,67);
+var lfo1 = new LFO(65,66,67);
 var sequencer = new Sequencer(70,71);
 var vca1 = new VCA(7,4,1,0);
 var adsr = new ADSR(6,3);
@@ -29,9 +29,10 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    data.connections.push("5-2");
-    data.connections.push("67-94");
-    data.connections.push("55-56");
+    data.connections.push("5-31");
+    data.connections.push("32-2");
+    data.connections.push("66-30");
+    data.connections.push("71-65");
 
     updateConnections(data.connections);
     updateControls(data.controls);
@@ -80,8 +81,10 @@ function updateControls(data) {
     if(data.hasOwnProperty(k)) {
       //vcf.controls[0].value = data[k];
       if(k=="0") {
-        vco1.controls[2].value = data[k];
-        lfo1.controls[0].value = data[k];
+        //lfo1.controls[0].value = data[k];
+        vcf1.controls[0].value = data[k];
+        //vcf1.controls[1].value = data[k];
+        vcf1.controls[2].value = data[k];
         //console.log(data[k]);
       }
     }
