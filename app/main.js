@@ -22,7 +22,7 @@ connection.onerror = function (error) {
   console.log('WebSocket Error ' + error);
 };
 
-var useArduino = true;
+var useArduino = false;
 
 if(useArduino) {
 
@@ -39,7 +39,12 @@ if(useArduino) {
     keyboard.note = data.note;
   };
 } else {
-
+  var data = {
+    connections: []
+  }
+  data.connections.push("5-2");
+  data.connections.push("55-56");
+  updateConnections(data.connections);
 }
 
 function updateConnections(data) {

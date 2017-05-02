@@ -6,6 +6,7 @@ var testThing;
 var app = express();
 var serverPort = 3000;
 var port = null; // serial port
+var portMissing = false;
 
 app.use(express.static('app'));
 
@@ -13,10 +14,15 @@ app.listen(serverPort, function () {
   console.log('listening')
   wss.on('connection', function connection(ws) {
 
-    if(!port) {
-      port = new SerialPort('COM4', {
-        parser: SerialPort.parsers.readline('\n')
-      });
+    if(!port && !portMissing) {
+      try {
+        port = new SerialPort('COM4', {
+          parser: SerialPort.parsers.readline('\n')
+        });
+      } catch(err) {
+        portMissing = true;
+        port = null;
+      }
     }
 
     var connections = [];
@@ -55,6 +61,10 @@ app.listen(serverPort, function () {
       ws.send(JSON.stringify(data), function(err){
         // is this needed?
       });
+    })
+
+    port.on('error', function() {
+      console.log("hi there");
     })
 
   });
