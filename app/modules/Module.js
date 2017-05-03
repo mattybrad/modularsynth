@@ -3,6 +3,7 @@ class Module {
     this._pins = pins;
     this.sockets = [];
     this.controls = [];
+    Module.allModules.push(this);
   }
 
   addSocket(label, type, node) {
@@ -17,3 +18,5 @@ class Module {
     )
   }
 }
+
+Module.allModules = [];

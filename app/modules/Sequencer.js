@@ -2,7 +2,7 @@ class Sequencer extends Module {
   constructor(...pins) {
     super(...pins);
 
-    this.steps = [0, 0.1, 0.2, 0.3];
+    this.steps = [0.3,0.35,0.4,0.42];
     this.currentStep = 0;
 
     this.cvNode = actx.createConstantSource();

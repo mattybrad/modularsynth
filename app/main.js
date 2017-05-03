@@ -64,6 +64,10 @@ var keyboard = new Keyboard(
 );
 var out = new Output(OUTPUT_IN);
 
+for(var i = 0; i < Module.allModules.length; i ++) {
+  GUI.gui.addModule(Module.allModules[i]);
+}
+
 var connection = new WebSocket('ws://localhost:3001', ['soap', 'xmpp']);
 
 // Log errors
@@ -92,12 +96,9 @@ if(useArduino) {
     connections: []
   }
   data.connections.push([VCO1_SQUARE, VCA1_IN].join("-"));
-  data.connections.push([VCA1_OUT, DELAY_IN].join("-"));
-  // data.connections.push([MIDI_CV, DELAY_IN].join("-"));
-  data.connections.push([DELAY_OUT, CRUSHER_IN].join("-"));
-  data.connections.push([CRUSHER_OUT, OUTPUT_IN].join("-"));
-  data.connections.push([MIDI_CV, VCO1_CV1].join("-"));
-  data.connections.push([MIDI_GATE, VCA1_CV1].join("-"));
+  data.connections.push([VCA1_OUT, OUTPUT_IN].join("-"));
+  data.connections.push([SEQUENCER_CV, VCO1_CV1].join("-"));
+  data.connections.push([SEQUENCER_GATE, VCA1_CV1].join("-"));
   updateConnections(data.connections);
   lfo1.controls[0].value = 0.3;
 }
