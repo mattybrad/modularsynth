@@ -1,11 +1,13 @@
 class ModuleGUI {
-  constructor(ctx, module) {
+  constructor(ctx, module, x, y) {
     this.ctx = ctx;
+    this.x = x;
+    this.y = y;
     this.module = module;
     this.draw();
   }
 
   draw() {
-    this.ctx.fillRect(0,0,20,20);
+    this.ctx.fillRect(this.x,0,20,20);
   }
 }
