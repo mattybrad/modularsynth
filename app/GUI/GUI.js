@@ -13,8 +13,9 @@ class GUI {
   }
 
   addModule(module) {
-    this.modules.push(new ModuleGUI(this.ctx, module, this.moduleX, 0));
-    this.moduleX += 100;
+    var moduleWidth = 100; // temp
+    this.modules.push(new ModuleGUI(this.ctx, module, this.moduleX, 0, moduleWidth));
+    this.moduleX += moduleWidth;
   }
 
   draw() {
