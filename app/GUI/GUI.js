@@ -13,11 +13,12 @@ class GUI {
   }
 
   addModule(module) {
-    this.modules.push(new ModuleGUI(this.ctx, module, this.moduleX));
-    this.moduleX += 50;
+    this.modules.push(new ModuleGUI(this.ctx, module, this.moduleX, 0));
+    this.moduleX += 100;
   }
 
   draw() {
+    this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
     for(var i = 0; i < this.modules.length; i ++) {
       this.modules[i].draw();
     }
