@@ -5,14 +5,16 @@ class VCA extends Module {
     var gainNode = actx.createGain();
     gainNode.gain.value = 0;
 
-    var gainNode2 = actx.createGain();
-    gainNode2.gain.value = 0;
+    /*
+        this sucks, but i'm having to add a bit of latency to compensate for
+        the VCO, which is slow to calculate frequency from CV
+    */
+    var delayNode = actx.createDelay(1);
+    delayNode.delayTime.value = 512 / actx.sampleRate;
+    delayNode.connect(gainNode.gain);
 
-    var gainNode3 = actx.createGain();
-    gainNode3.gain.value = 0;
-
-    this.addSocket("cv1", Socket.IN, gainNode.gain);
-    this.addSocket("cv2", Socket.IN, gainNode3);
+    this.addSocket("cv1", Socket.IN, delayNode);
+    this.addSocket("cv2", Socket.IN, delayNode);
     this.addSocket("in", Socket.IN, gainNode);
     this.addSocket("out", Socket.OUT, gainNode);
 
