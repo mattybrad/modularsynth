@@ -13,7 +13,7 @@ class VCO extends Module {
   constructor(...pins) {
     super(...pins);
 
-    var cvAdjustmentNode = actx.createScriptProcessor(512, 1, 1);
+    var cvAdjustmentNode = actx.createScriptProcessor(1024, 1, 1);
     cvAdjustmentNode.onaudioprocess = function(ev) {
       var inputBuffer = ev.inputBuffer;
       var inputData = inputBuffer.getChannelData(0);

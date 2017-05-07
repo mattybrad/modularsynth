@@ -10,7 +10,7 @@ class VCA extends Module {
         the VCO, which is slow to calculate frequency from CV
     */
     var delayNode = actx.createDelay(1);
-    delayNode.delayTime.value = 512 / actx.sampleRate;
+    delayNode.delayTime.value = 1024 / actx.sampleRate;
     delayNode.connect(gainNode.gain);
 
     this.addSocket("cv1", Socket.IN, delayNode);

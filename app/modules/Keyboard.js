@@ -27,9 +27,8 @@ class Keyboard extends Module {
       var keyIndex = keyOrder.indexOf(ev.key);
       if(keyIndex >= 0) {
         gateNode.gain.value = 1;
-        var noteNumber = keyIndex + 2 * 12;
+        var noteNumber = keyIndex + 1 * 12;
         var outputValue = noteNumber / 12 / 5;
-        console.log(outputValue);
         cvNode.gain.value = outputValue;
         if(keysDown.indexOf(keyIndex)==-1) {
           keysDown.push(keyIndex);

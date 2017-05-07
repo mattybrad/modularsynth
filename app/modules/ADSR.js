@@ -4,21 +4,12 @@ class ADSR extends Module {
 
     this.gateOpen = false;
 
-    this.gainNode = actx.createGain();
-    this.gainNode.gain.value = 0;
-
-    // constant "voltage" source (replace with reusable/shareable source soon)
-    var bufferSource = actx.createBufferSource();
-    var buffer = actx.createBuffer(1, 1, actx.sampleRate);
-    var bufferData = buffer.getChannelData(0);
-    bufferData[0] = 1;
-    bufferSource.buffer = buffer;
-    bufferSource.loop = true;
-    bufferSource.connect(this.gainNode);
-    bufferSource.start();
+    this.constantNode = actx.createConstantSource();
+    this.constantNode.offset.value = 0;
+    this.constantNode.start();
 
     // gate node, detects change in input and triggers stuff
-    this.gateNode = actx.createScriptProcessor(256, 1, 1);
+    this.gateNode = actx.createScriptProcessor(512, 1, 1);
     this.gateNode.onaudioprocess = function(ev) {
       var inputBuffer = ev.inputBuffer;
       var inputSample = inputBuffer.getChannelData(0)[0];
@@ -35,35 +26,33 @@ class ADSR extends Module {
       }
     }.bind(this);
 
-    // hack! for now, create a gain node so i've got something to connect the script processor to
-    this.dummyNode = actx.createGain();
-    this.dummyNode.gain.value = 0;
-    this.dummyNode.connect(actx.destination);
-    this.gateNode.connect(this.dummyNode);
+    this.gateNode.connect(this.constantNode.offset);
 
-    this.attack = 0.01;
-    this.decay = 0.01;
-    this.sustain = 0.3;
-    this.release = 0.3;
+    this.attack = 0;
+    this.decay = 0.1;
+    this.sustain = 0.8;
+    this.release = 4.0;
 
     this.addSocket("gate", Socket.IN, this.gateNode);
-    this.addSocket("out", Socket.OUT, this.gainNode);
+    this.addSocket("out", Socket.OUT, this.constantNode);
   }
 
   triggerStart() {
+    console.log("START");
     var now = actx.currentTime;
-    this.gainNode.gain.cancelScheduledValues(now);
-    this.gainNode.gain.setValueAtTime(Math.max(this.gainNode.gain.value, ADSR.ALMOST_ZERO), now);
-    this.gainNode.gain.exponentialRampToValueAtTime(1, now + this.attack);
-    this.gainNode.gain.exponentialRampToValueAtTime(Math.max(this.sustain, ADSR.ALMOST_ZERO), now + this.attack + this.decay);
+    this.constantNode.offset.cancelScheduledValues(now);
+    this.constantNode.offset.setValueAtTime(Math.max(this.constantNode.offset.value, ADSR.ALMOST_ZERO), now);
+    this.constantNode.offset.exponentialRampToValueAtTime(1, now + this.attack);
+    this.constantNode.offset.exponentialRampToValueAtTime(Math.max(this.sustain, ADSR.ALMOST_ZERO), now + this.attack + this.decay);
   }
 
   triggerEnd() {
+    console.log("END");
     var now = actx.currentTime;
-    this.gainNode.gain.cancelScheduledValues(now);
-    this.gainNode.gain.setValueAtTime(Math.max(this.gainNode.gain.value, ADSR.ALMOST_ZERO), now);
-    this.gainNode.gain.exponentialRampToValueAtTime(ADSR.ALMOST_ZERO, now + this.release);
-    this.gainNode.gain.setValueAtTime(0, now + this.release);
+    this.constantNode.offset.cancelScheduledValues(now);
+    this.constantNode.offset.setValueAtTime(Math.max(this.constantNode.offset.value, ADSR.ALMOST_ZERO), now);
+    this.constantNode.offset.exponentialRampToValueAtTime(ADSR.ALMOST_ZERO, now + this.release);
+    this.constantNode.offset.setValueAtTime(0, now + this.release);
   }
 }
 
