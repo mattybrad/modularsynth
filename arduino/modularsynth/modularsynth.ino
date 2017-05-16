@@ -1,21 +1,21 @@
 // pins for selecting mux channel for reading
-const int READ_SELECT_1 = 2;
-const int READ_SELECT_2 = 3;
-const int READ_SELECT_3 = 4;
+const int READ_SELECT_1 = 7;
+const int READ_SELECT_2 = 6;
+const int READ_SELECT_3 = 5;
 
 // pins for reading from multiplexers
-const int READ_MUX_1 = 5;
-const int READ_MUX_2 = 6; // actually there's only 1 at the moment
+const int READ_MUX_1 = 22;
+const int READ_MUX_2 = 23; // actually there's only 1 at the moment
 
 // pins for selecting demux channel for writing
-const int WRITE_SELECT_1 = 7;
-const int WRITE_SELECT_2 = 8;
-const int WRITE_SELECT_3 = 9;
+const int WRITE_SELECT_1 = 10;
+const int WRITE_SELECT_2 = 9;
+const int WRITE_SELECT_3 = 8;
 
 // pins for selecting which demux to write to
-const int DEMUX_SELECT_1 = 10;
-const int DEMUX_SELECT_2 = 11;
-const int DEMUX_SELECT_3 = 12;
+const int DEMUX_SELECT_1 = 4;
+const int DEMUX_SELECT_2 = 3;
+const int DEMUX_SELECT_3 = 2;
 
 
 void setup() {
@@ -28,7 +28,13 @@ void setup() {
   pinMode(WRITE_SELECT_1,OUTPUT);
   pinMode(WRITE_SELECT_2,OUTPUT);
   pinMode(WRITE_SELECT_3,OUTPUT);
+  pinMode(DEMUX_SELECT_1,OUTPUT);
+  pinMode(DEMUX_SELECT_2,OUTPUT);
+  pinMode(DEMUX_SELECT_3,OUTPUT);
   pinMode(13, OUTPUT);
+  digitalWrite(DEMUX_SELECT_1, bitRead(4,0));
+  digitalWrite(DEMUX_SELECT_2, bitRead(4,1));
+  digitalWrite(DEMUX_SELECT_3, bitRead(4,2));
   Serial.begin(9600);
   Serial1.begin(31250);
 }
@@ -71,7 +77,7 @@ void loop() {
     }
   }
   //checkMidi();
-  for(byte i = 0; i < 16; i ++) {
+  for(byte i = 0; i < 0; i ++) {
     checkMidi();
     Serial.print("A");
     Serial.print(i);
@@ -86,6 +92,7 @@ void loop() {
   Serial.print("\n");
   Serial.println("DONE");
   digitalWrite(13, gate);
+  delay(1000);
 }
 
 void checkMidi() {
