@@ -4,8 +4,7 @@ const int READ_SELECT_2 = 6;
 const int READ_SELECT_3 = 5;
 
 // pins for reading from multiplexers
-const int READ_MUX_1 = 22;
-const int READ_MUX_2 = 23; // actually there's only 1 at the moment
+const int READ_MUX_PINS[] = {22, 23, 24, 25, 26, 27, 28, 29};
 
 // pins for selecting demux channel for writing
 const int WRITE_SELECT_1 = 10;
@@ -23,8 +22,6 @@ void setup() {
   pinMode(READ_SELECT_1,OUTPUT);
   pinMode(READ_SELECT_2,OUTPUT);
   pinMode(READ_SELECT_3,OUTPUT);
-  pinMode(READ_MUX_1,INPUT);
-  pinMode(READ_MUX_2,INPUT);
   pinMode(WRITE_SELECT_1,OUTPUT);
   pinMode(WRITE_SELECT_2,OUTPUT);
   pinMode(WRITE_SELECT_3,OUTPUT);
@@ -32,9 +29,9 @@ void setup() {
   pinMode(DEMUX_SELECT_2,OUTPUT);
   pinMode(DEMUX_SELECT_3,OUTPUT);
   pinMode(13, OUTPUT);
-  digitalWrite(DEMUX_SELECT_1, bitRead(4,0));
-  digitalWrite(DEMUX_SELECT_2, bitRead(4,1));
-  digitalWrite(DEMUX_SELECT_3, bitRead(4,2));
+  for(int i=0;i<8;i++) {
+    pinMode(READ_MUX_PINS[i], INPUT);
+  }
   Serial.begin(9600);
   Serial1.begin(31250);
 }
@@ -56,26 +53,41 @@ int currentNote = 0;
 bool gate = false;
 
 void loop() {
-  int i,j;
-  for(i=0;i<8;i++) {
-    digitalWrite(WRITE_SELECT_1,bitRead(i,0));
-    digitalWrite(WRITE_SELECT_2,bitRead(i,1));
-    digitalWrite(WRITE_SELECT_3,bitRead(i,2));
+  int i,j,k,m;
+  
+  // supply 5V to each "write" demultiplexer in turn
+  for(i=0;i<2;i++) {
+    digitalWrite(DEMUX_SELECT_1,bitRead(i,0));
+    digitalWrite(DEMUX_SELECT_2,bitRead(i,1));
+    digitalWrite(DEMUX_SELECT_3,bitRead(i,2));
+    
+    // supply 5V to each pin in turn
     for(j=0;j<8;j++) {
-      checkMidi();
-      if(i<j) {
-        digitalWrite(READ_SELECT_1,bitRead(j,0));
-        digitalWrite(READ_SELECT_2,bitRead(j,1));
-        digitalWrite(READ_SELECT_3,bitRead(j,2));
-        if(digitalRead(READ_MUX_1)==HIGH) {
-          Serial.print(i);
-          Serial.print("-");
-          Serial.print(j);
-          Serial.print("\n");
+      digitalWrite(WRITE_SELECT_1,bitRead(j,0));
+      digitalWrite(WRITE_SELECT_2,bitRead(j,1));
+      digitalWrite(WRITE_SELECT_3,bitRead(j,2));
+      
+      // select "read" multiplexer pins in turn (for all multiplexers simultaneously)
+      for(k=0;k<8;k++) {
+        digitalWrite(READ_SELECT_1,bitRead(k,0));
+        digitalWrite(READ_SELECT_2,bitRead(k,1));
+        digitalWrite(READ_SELECT_3,bitRead(k,2));
+        
+        // read from each multiplexer in turn
+        for(m=0;m<2;m++) {
+          if(i*8+j<m*8+k) {
+            if(digitalRead(READ_MUX_PINS[m])==HIGH) {
+              Serial.print(i*8 + j);
+              Serial.print("-");
+              Serial.print(m*8 + k);
+              Serial.print("\n");
+            }
+          }
         }
       }
     }
   }
+  
   //checkMidi();
   for(byte i = 0; i < 0; i ++) {
     checkMidi();
