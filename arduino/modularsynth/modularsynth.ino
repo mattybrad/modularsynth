@@ -84,27 +84,30 @@ void loop() {
             }
           }
         }
+
+        // knob multiplexers are sharing selector pins with connection multiplexers
+        // this means this is a good place to read the analogue values
+        if(i==0 && j==0) {
+          for(m=0;m<2;m++) {
+            Serial.print("A");
+            Serial.print(m*8+k);
+            Serial.print("-");
+            Serial.print(analogRead(m));
+            Serial.print("\n");
+          }
+        }
       }
     }
   }
   
   //checkMidi();
-  for(byte i = 0; i < 0; i ++) {
-    checkMidi();
-    Serial.print("A");
-    Serial.print(i);
-    Serial.print("-");
-    Serial.print(analogRead(i));
-    Serial.print("\n");
-  }
-  checkMidi();
   Serial.println(gate?"G1":"G0");
   Serial.print("N");
   Serial.print(currentNote);
   Serial.print("\n");
   Serial.println("DONE");
   digitalWrite(13, gate);
-  delay(1000);
+  delay(4000);
 }
 
 void checkMidi() {
