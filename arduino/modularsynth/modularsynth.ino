@@ -56,7 +56,7 @@ void loop() {
   int i,j,k,m;
   
   // supply 5V to each "write" demultiplexer in turn
-  for(i=0;i<4;i++) {
+  for(i=0;i<8;i++) {
     digitalWrite(DEMUX_SELECT_1,bitRead(i,0));
     digitalWrite(DEMUX_SELECT_2,bitRead(i,1));
     digitalWrite(DEMUX_SELECT_3,bitRead(i,2));
@@ -74,7 +74,7 @@ void loop() {
         digitalWrite(READ_SELECT_3,bitRead(k,2));
         
         // read from each multiplexer in turn
-        for(m=0;m<4;m++) {
+        for(m=0;m<8;m++) {
           if(i*8+j<m*8+k) {
             if(digitalRead(READ_MUX_PINS[m])==HIGH) {
               Serial.print(i*8 + j);
