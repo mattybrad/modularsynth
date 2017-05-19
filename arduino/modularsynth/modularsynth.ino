@@ -32,7 +32,7 @@ void setup() {
   for(int i=0;i<8;i++) {
     pinMode(READ_MUX_PINS[i], INPUT);
   }
-  Serial.begin(9600);
+  Serial.begin(250000);
   Serial1.begin(31250);
 }
 
@@ -51,9 +51,13 @@ bool notes[128];
 
 int currentNote = 0;
 bool gate = false;
+String connectionData;
+String knobData;
 
 void loop() {
+  long timeCheck = millis();
   int i,j,k,m;
+  connectionData = "C";
   
   // supply 5V to each "write" demultiplexer in turn
   for(i=0;i<8;i++) {
@@ -81,19 +85,18 @@ void loop() {
               Serial.print("-");
               Serial.print(m*8 + k);
               Serial.print("\n");
+              connectionData += String(i*8 + j) + String("-") + String(m*8 + k) + String(",");
             }
           }
         }
 
         // knob multiplexers are sharing selector pins with connection multiplexers
         // this means this is a good place to read the analogue values
-        if(i==0 && j==0) {
+        // currently not doing this every loop because it would be too slow(?)
+        if(j==0) {
           for(m=0;m<2;m++) {
-            Serial.print("A");
-            Serial.print(m*8+k);
-            Serial.print("-");
-            Serial.print(analogRead(m));
-            Serial.print("\n");
+            knobData = String("A")+String(m*8+k)+String("-")+String(analogRead(m));
+            Serial.println(knobData);
           }
         }
       }
@@ -101,13 +104,16 @@ void loop() {
   }
   
   //checkMidi();
+  Serial.println(connectionData);
   Serial.println(gate?"G1":"G0");
   Serial.print("N");
   Serial.print(currentNote);
   Serial.print("\n");
   Serial.println("DONE");
   digitalWrite(13, gate);
-  delay(4000);
+
+  Serial.println(millis() - timeCheck);
+  delay(1000);
 }
 
 void checkMidi() {
