@@ -75,20 +75,21 @@ connection.onerror = function (error) {
   console.log('WebSocket Error ' + error);
 };
 
-var useArduino = false;
+var useArduino = true;
 
 if(useArduino) {
 
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    data.connections.push("5-31");
-    data.connections.push("32-2");
-    data.connections.push("66-30");
-    data.connections.push("71-65");
+    console.log("HELLO");
+    data.connections.push([VCO1_SQUARE, VCA1_IN].join("-"));
+    data.connections.push([VCA1_OUT, OUTPUT_IN].join("-"));
+    data.connections.push([MIDI_CV, VCO1_CV1].join("-"));
+    data.connections.push([MIDI_GATE, VCA1_CV1].join("-"));
 
     updateConnections(data.connections);
-    updateControls(data.controls);
+    //updateControls(data.controls);
     keyboard.note = data.note;
   };
 } else {

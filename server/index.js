@@ -11,17 +11,23 @@ var portMissing = false;
 app.use(express.static('app'));
 
 app.listen(serverPort, function () {
-  console.log('listening')
+  console.log("listening for web socket connection...");
   wss.on('connection', function connection(ws) {
+    console.log("web socket connection made!");
 
     if(!port && !portMissing) {
+      console.log("attempting serial port connection...")
       try {
         port = new SerialPort('COM4', {
+          baudRate: 250000,
           parser: SerialPort.parsers.readline('\n')
         });
       } catch(err) {
+        console.log("serial port connection failed");
         portMissing = true;
         port = null;
+      } finally {
+        console.log("serial port connection succeeded!");
       }
     }
 
