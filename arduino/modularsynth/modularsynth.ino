@@ -94,7 +94,7 @@ void loop() {
         // this means this is a good place to read the analogue values
         // currently not doing this every loop because it would be too slow(?)
         if(j==0) {
-          for(m=0;m<2;m++) {
+          for(m=0;m<4;m++) {
             knobData = String("A")+String(m*8+k)+String("-")+String(analogRead(m));
             Serial.println(knobData);
           }

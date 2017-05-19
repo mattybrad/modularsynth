@@ -6,7 +6,7 @@ function fakePin() {
   return _fakePin;
 }
 
-const VCO1_SAW = fakePin();
+const VCO1_SAW = 1;
 const VCO1_SQUARE = 0;
 const VCO1_TRIANGLE = fakePin();
 const VCO1_SINE = fakePin();
@@ -30,8 +30,8 @@ const CRUSHER_IN = fakePin();
 const CRUSHER_OUT = fakePin();
 
 const VCF1_CV = fakePin();
-const VCF1_IN = fakePin();
-const VCF1_OUT = fakePin();
+const VCF1_IN = 33;
+const VCF1_OUT = 34;
 
 const DELAY_IN = fakePin();
 const DELAY_OUT = fakePin();
