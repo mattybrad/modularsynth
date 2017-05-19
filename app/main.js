@@ -144,8 +144,11 @@ function updateControls(data) {
   for(var k in data) {
     if(data.hasOwnProperty(k)) {
       //vcf.controls[0].value = data[k];
-      if(k=="16") {
+      if(k=="24") {
         vcf1.controls[0].value = data[k];
+      }
+      if(k=="16") {
+        vco2.controls[0].value = data[k];
       }
     }
   }

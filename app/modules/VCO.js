@@ -53,7 +53,7 @@ class VCO extends Module {
     this.addSocket("cv1 in", Socket.IN, cvAdjustmentNode);
     this.addSocket("cv2 in", Socket.IN, cv2Gain);
 
-    this.addControl("range", rangeNode.offset, -5, 5);
+    this.addControl("range", rangeNode.offset, -2, 3);
     this.addControl("tuning", tuningNode.offset, -0.2, 0.2);
     this.addControl("cv2 gain", cv2Gain.gain, 0, 1, "square");
 
