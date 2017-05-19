@@ -85,13 +85,13 @@ if(useArduino) {
     //if(data.controls[25]!=null) console.log(data.controls[25]);
     // data.connections.push([VCO1_SQUARE, VCA1_IN].join("-"));
     // data.connections.push([VCA1_OUT, OUTPUT_IN].join("-"));
-    // data.connections.push([MIDI_CV, VCO1_CV1].join("-"));
+    data.connections.push([MIDI_CV, VCO2_CV1].join("-"));
     // data.connections.push([MIDI_GATE, VCA1_CV1].join("-"));
 
     updateConnections(data.connections);
     //console.log(data.connections);
     updateControls(data.controls);
-    keyboard.note = data.note;
+    // keyboard.note = data.note;
   };
 } else {
   var data = {
