@@ -39,17 +39,29 @@ app.listen(serverPort, function () {
     var firstTime = true; // seemed to be getting some weird data through on first read - little hack to fix it
     port.on('data',function(data){
       if(!firstTime) {
-        if(data.slice(0,-1)=="DONE") {
-          connections = connectionsQueue;
-          controls = controlsQueue;
-          connectionsQueue = [];
-          controlsQueue = [];
-        } else {
-          if(data.charAt(0) == "A") controlsQueue.push(data.slice(1));
-          else if(data.charAt(0) == "N") note = parseInt(data.slice(1));
-          else if(data.charAt(0) == "G") gate = data.slice(1);
-          else connectionsQueue.push(data);
+        var messageType = data.slice(0,1);
+        data = data.slice(1,-1); // get rid of message type and newline character(?)
+        switch(messageType) {
+          case "C":
+          data = data.slice(0,-1); // get rid of trailing comma (hacky, sorry!)
+          if(data.length) {
+            connections = data.split(",");
+          } else {
+            connections = [];
+          }
+          break;
         }
+        // if(data.slice(0,-1)=="DONE") {
+        //   connections = connectionsQueue;
+        //   controls = controlsQueue;
+        //   connectionsQueue = [];
+        //   controlsQueue = [];
+        // } else {
+        //   if(data.charAt(0) == "A") controlsQueue.push(data.slice(1));
+        //   else if(data.charAt(0) == "N") note = parseInt(data.slice(1));
+        //   else if(data.charAt(0) == "G") gate = data.slice(1);
+        //   else connectionsQueue.push(data);
+        // }
       }
       firstTime = false;
       var controlObject = {};

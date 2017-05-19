@@ -109,11 +109,7 @@ void loop() {
   Serial.print("N");
   Serial.print(currentNote);
   Serial.print("\n");
-  Serial.println("DONE");
   digitalWrite(13, gate);
-
-  Serial.println(millis() - timeCheck);
-  delay(1000);
 }
 
 void checkMidi() {

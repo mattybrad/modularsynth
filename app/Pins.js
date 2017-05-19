@@ -7,7 +7,7 @@ function fakePin() {
 }
 
 const VCO1_SAW = fakePin();
-const VCO1_SQUARE = fakePin();
+const VCO1_SQUARE = 0;
 const VCO1_TRIANGLE = fakePin();
 const VCO1_SINE = fakePin();
 const VCO1_CV1 = fakePin();
@@ -61,4 +61,4 @@ const ADSR1_OUT = fakePin();
 const MIDI_CV = fakePin();
 const MIDI_GATE = fakePin();
 
-const OUTPUT_IN = fakePin();
+const OUTPUT_IN = 32;
