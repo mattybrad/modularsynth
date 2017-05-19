@@ -43,12 +43,18 @@ app.listen(serverPort, function () {
         data = data.slice(1,-1); // get rid of message type and newline character(?)
         switch(messageType) {
           case "C":
+          // connection message
           data = data.slice(0,-1); // get rid of trailing comma (hacky, sorry!)
           if(data.length) {
             connections = data.split(",");
           } else {
             connections = [];
           }
+          break;
+
+          case "A":
+          // analogue (knob) message
+          controls = [data];
           break;
         }
         // if(data.slice(0,-1)=="DONE") {

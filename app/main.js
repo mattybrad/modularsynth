@@ -82,6 +82,8 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
+    if(data.controls[0]!=null) console.log(data.controls[0]);
+    //if(Math.random()>0.99) console.log(data.controls);
     // data.connections.push([VCO1_SQUARE, VCA1_IN].join("-"));
     // data.connections.push([VCA1_OUT, OUTPUT_IN].join("-"));
     // data.connections.push([MIDI_CV, VCO1_CV1].join("-"));
