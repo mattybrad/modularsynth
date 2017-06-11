@@ -10,15 +10,15 @@ const VCO1_SAW = 59;
 const VCO1_SQUARE = 56;
 const VCO1_TRIANGLE = 57;
 const VCO1_SINE = 58;
-const VCO1_CV1 = fakePin();
-const VCO1_CV2 = fakePin();
+const VCO1_CV1 = 63;
+const VCO1_CV2 = 61;
 
-const VCO2_SAW = fakePin();
-const VCO2_SQUARE = fakePin();
-const VCO2_TRIANGLE = fakePin();
+const VCO2_SAW = 53;
+const VCO2_SQUARE = 55;
+const VCO2_TRIANGLE = 54;
 const VCO2_SINE = fakePin();
-const VCO2_CV1 = fakePin();
-const VCO2_CV2 = fakePin();
+const VCO2_CV1 = 60;
+const VCO2_CV2 = 62;
 
 const NOISE_OUT = fakePin();
 
