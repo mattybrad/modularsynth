@@ -167,10 +167,10 @@ function updateControls(data) {
         //noise.controls[0].value = d;
         break;
         case CRUSHER_RATE:
-        //bitCrusher.controls[0].value = d;
+        bitCrusher.rateControl = d;
         break;
         case CRUSHER_RESOLUTION:
-        //bitCrusher.controls[1].value = d;
+        bitCrusher.resolutionControl = d;
         break;
       }
     }
