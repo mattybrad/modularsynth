@@ -110,6 +110,7 @@ void loop() {
   Serial.print(currentNote);
   Serial.print("\n");
   digitalWrite(13, gate);
+
 }
 
 void checkMidi() {

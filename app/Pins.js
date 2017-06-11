@@ -6,15 +6,15 @@ function fakePin() {
   return _fakePin;
 }
 
-const VCO1_SAW = 1;
-const VCO1_SQUARE = 0;
-const VCO1_TRIANGLE = fakePin();
-const VCO1_SINE = fakePin();
+const VCO1_SAW = 59;
+const VCO1_SQUARE = 56;
+const VCO1_TRIANGLE = 57;
+const VCO1_SINE = 58;
 const VCO1_CV1 = fakePin();
 const VCO1_CV2 = fakePin();
 
-const VCO2_SAW = 40;
-const VCO2_SQUARE = 41;
+const VCO2_SAW = fakePin();
+const VCO2_SQUARE = fakePin();
 const VCO2_TRIANGLE = fakePin();
 const VCO2_SINE = fakePin();
 const VCO2_CV1 = fakePin();
@@ -30,8 +30,8 @@ const CRUSHER_IN = fakePin();
 const CRUSHER_OUT = fakePin();
 
 const VCF1_CV = fakePin();
-const VCF1_IN = 48;
-const VCF1_OUT = 49;
+const VCF1_IN = fakePin();
+const VCF1_OUT = fakePin();
 
 const DELAY_IN = fakePin();
 const DELAY_OUT = fakePin();
@@ -61,4 +61,4 @@ const ADSR1_OUT = fakePin();
 const MIDI_CV = fakePin();
 const MIDI_GATE = fakePin();
 
-const OUTPUT_IN = 56;
+const OUTPUT_IN = 2;
