@@ -82,11 +82,9 @@ if(useArduino) {
   // do stuff on websocket data received
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
-    //if(data.controls[25]!=null) console.log(data.controls[25]);
-    // data.connections.push([VCO1_SQUARE, VCA1_IN].join("-"));
-    // data.connections.push([VCA1_OUT, OUTPUT_IN].join("-"));
-    data.connections.push([MIDI_CV, VCO2_CV1].join("-"));
-    // data.connections.push([MIDI_GATE, VCA1_CV1].join("-"));
+    data.connections=[];
+    data.connections.push([VCO1_SQUARE, VCF1_IN].join("-"));
+    data.connections.push([VCF1_OUT, OUTPUT_IN].join("-"));
 
     updateConnections(data.connections);
     //console.log(data.connections);
@@ -143,12 +141,11 @@ function updateConnections(data) {
 function updateControls(data) {
   for(var k in data) {
     if(data.hasOwnProperty(k)) {
-      //vcf.controls[0].value = data[k];
       if(k=="24") {
         vcf1.controls[0].value = data[k];
       }
       if(k=="16") {
-        vco2.controls[0].value = data[k];
+        //vco2.controls[0].value = data[k];
       }
     }
   }
