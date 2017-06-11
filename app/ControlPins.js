@@ -1,0 +1,14 @@
+// CONTROL PINS
+
+const VCO1_RANGE = 29;
+const VCO1_TUNING = 31;
+const VCO1_CV2_ATTEN = 27;
+
+const VCO2_RANGE = 30;
+const VCO2_TUNING = 28;
+const VCO2_CV2_ATTEN = 24;
+
+const NOISE_COLOUR = 25;
+
+const CRUSHER_RATE = 26;
+const CRUSHER_RESOLUTION = 21;

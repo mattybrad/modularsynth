@@ -83,8 +83,9 @@ if(useArduino) {
   connection.onmessage = function (e) {
     var data = JSON.parse(e.data);
     data.connections=[];
-    data.connections.push([VCO1_SQUARE, VCF1_IN].join("-"));
-    data.connections.push([VCF1_OUT, OUTPUT_IN].join("-"));
+    data.connections.push([VCO1_SQUARE, CRUSHER_IN].join("-"));
+    data.connections.push([VCO2_SAW, CRUSHER_IN].join("-"));
+    data.connections.push([CRUSHER_OUT, OUTPUT_IN].join("-"));
 
     updateConnections(data.connections);
     //console.log(data.connections);
@@ -139,13 +140,38 @@ function updateConnections(data) {
 }
 
 function updateControls(data) {
+  var d;
   for(var k in data) {
     if(data.hasOwnProperty(k)) {
-      if(k=="24") {
-        vcf1.controls[0].value = data[k];
-      }
-      if(k=="16") {
-        //vco2.controls[0].value = data[k];
+      d = data[k];
+      switch(parseInt(k)) {
+        case VCO1_RANGE:
+        vco1.controls[0].value = d;
+        break;
+        case VCO1_TUNING:
+        vco1.controls[1].value = d;
+        break;
+        case VCO1_CV2_ATTEN:
+        vco1.controls[2].value = d;
+        break;
+        case VCO2_RANGE:
+        vco2.controls[0].value = d;
+        break;
+        case VCO2_TUNING:
+        vco2.controls[1].value = d;
+        break;
+        case VCO2_CV2_ATTEN:
+        vco2.controls[2].value = d;
+        break;
+        case NOISE_COLOUR:
+        //noise.controls[0].value = d;
+        break;
+        case CRUSHER_RATE:
+        //bitCrusher.controls[0].value = d;
+        break;
+        case CRUSHER_RESOLUTION:
+        //bitCrusher.controls[1].value = d;
+        break;
       }
     }
   }
