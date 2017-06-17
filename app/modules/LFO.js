@@ -24,8 +24,8 @@ class LFO extends Module {
       o.start();
     }
 
-    this.addControl("frequency", frequencyNode.offset, 0.01, 20, "square");
-    this.addControl("cv", cvNode.gain, 0, 20, "square");
+    this.addControl("frequency", frequencyNode.offset, 0.01, 400, "square");
+    //this.addControl("cv", cvNode.gain, 0, 20, "square");
 
   }
 }

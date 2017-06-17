@@ -81,10 +81,6 @@ void loop() {
         for(m=0;m<8;m++) {
           if(i*8+j<m*8+k) {
             if(digitalRead(READ_MUX_PINS[m])==HIGH) {
-              Serial.print(i*8 + j);
-              Serial.print("-");
-              Serial.print(m*8 + k);
-              Serial.print("\n");
               connectionData += String(i*8 + j) + String("-") + String(m*8 + k) + String(",");
             }
           }
@@ -94,7 +90,7 @@ void loop() {
         // this means this is a good place to read the analogue values
         // currently not doing this every loop because it would be too slow(?)
         if(j==0) {
-          for(m=0;m<4;m++) {
+          for(m=0;m<5;m++) {
             knobData = String("A")+String(m*8+k)+String("-")+String(analogRead(m));
             Serial.println(knobData);
           }

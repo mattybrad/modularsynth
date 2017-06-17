@@ -44,6 +44,11 @@ var lfo1 = new LFO(
   LFO1_SQUARE,
   LFO1_SINE
 );
+var lfo2 = new LFO(
+  LFO2_CV,
+  LFO2_SQUARE,
+  LFO2_SINE
+);
 var sequencer = new Sequencer(
   SEQUENCER_CV,
   SEQUENCER_GATE
@@ -54,9 +59,15 @@ var vca1 = new VCA(
   VCA1_IN,
   VCA1_OUT
 );
-var adsr = new ADSR(
+var adsr1 = new ADSR(
   ADSR1_GATE,
   ADSR1_OUT
+);
+var mixer1 = new Mixer(
+  MIXER1_IN1,
+  MIXER1_IN2,
+  MIXER1_IN3,
+  MIXER1_OUT
 );
 var keyboard = new Keyboard(
   MIDI_CV,
@@ -137,7 +148,7 @@ function updateControls(data) {
   var d;
   for(var k in data) {
     if(data.hasOwnProperty(k)) {
-      d = data[k];
+      d = 1-data[k]; // because i wired everything backwards...
       switch(parseInt(k)) {
         case VCO1_RANGE:
         vco1.controls[0].value = d;
@@ -165,6 +176,51 @@ function updateControls(data) {
         break;
         case CRUSHER_RESOLUTION:
         bitCrusher.resolutionControl = d;
+        break;
+        case VCF1_CUTOFF:
+        vcf1.controls[0].value = d;
+        break;
+        case VCF1_RESONANCE:
+        vcf1.controls[1].value = d;
+        break;
+        case VCF1_CV_ATTEN:
+        vcf1.controls[2].value = d;
+        break;
+        case LFO1_FREQUENCY:
+        lfo1.controls[0].value = d;
+        break;
+        case LFO2_FREQUENCY:
+        lfo2.controls[0].value = d;
+        break;
+        case ADSR1_ATTACK:
+        adsr1.attack = 2 * d;
+        break;
+        case ADSR1_DECAY:
+        adsr1.decay = 2 * d;
+        break;
+        case ADSR1_SUSTAIN:
+        adsr1.sustain = d;
+        break;
+        case ADSR1_RELEASE:
+        adsr1.release = 10 * d * d;
+        break;
+        case MIXER1_IN1_ATTEN:
+        mixer1.controls[0].value = d;
+        break;
+        case MIXER1_IN2_ATTEN:
+        mixer1.controls[1].value = d;
+        break;
+        case MIXER1_IN3_ATTEN:
+        mixer1.controls[2].value = d;
+        break;
+        case VCA1_GAIN:
+        //vca1.controls[0].value = d;
+        break;
+        case DELAY_DELAY:
+        delay.controls[0].value = d;
+        break;
+        case DELAY_FEEDBACK:
+        delay.controls[1].value = d;
         break;
       }
     }

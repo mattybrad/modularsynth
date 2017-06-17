@@ -11,4 +11,32 @@ const VCO2_CV2_ATTEN = 24;
 const NOISE_COLOUR = 25;
 
 const CRUSHER_RATE = 26;
-const CRUSHER_RESOLUTION = 21;
+const CRUSHER_RESOLUTION = 19;
+
+const VCF1_CUTOFF = 16;
+const VCF1_RESONANCE = 17;
+const VCF1_CV_ATTEN = 18;
+
+const LFO1_FREQUENCY = 8;
+const LFO2_FREQUENCY = 11;
+
+const DELAY_DELAY = 14;
+const DELAY_FEEDBACK = 35;
+const DELAY_MIX = 32;
+
+const ADSR1_ATTACK = 5;
+const ADSR1_DECAY = 7;
+const ADSR1_SUSTAIN = 33;
+const ADSR1_RELEASE = 34;
+
+const ADSR2_ATTACK = 0;
+const ADSR2_DECAY = 3;
+const ADSR2_SUSTAIN = 4;
+const ADSR2_RELEASE = 6;
+
+const MIXER1_IN1_ATTEN = 9;
+const MIXER1_IN2_ATTEN = 10;
+const MIXER1_IN3_ATTEN = 13;
+
+const VCA1_GAIN = 2;
+const VCA1_CV2_ATTEN = 1;
