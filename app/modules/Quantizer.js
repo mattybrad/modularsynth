@@ -1,6 +1,6 @@
 class Quantizer extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var quantizerNode = actx.createScriptProcessor(512, 1, 1);
     var quantizeValue = 12 * 5; // 12 notes per octave, 5 octaves per "volt"

@@ -1,6 +1,7 @@
 var actx = new AudioContext();
 
 var vco1 = new VCO(
+  "vco 1",
   VCO1_SAW,
   VCO1_SQUARE,
   VCO1_TRIANGLE,
@@ -9,6 +10,7 @@ var vco1 = new VCO(
   VCO1_CV2
 );
 var vco2 = new VCO(
+  "vco 2",
   VCO2_SAW,
   VCO2_SQUARE,
   VCO2_TRIANGLE,
@@ -16,64 +18,76 @@ var vco2 = new VCO(
   VCO2_CV1,
   VCO2_CV2
 );
-var noise = new Noise(NOISE_OUT);
+var noise = new Noise("noise", NOISE_OUT);
 var sampleAndHold = new SampleAndHold(
+  "sample and hold",
   SH_TRIGGER,
   SH_IN,
   SH_OUT
 );
 var bitCrusher = new BitCrusher(
+  "bit crusher",
   CRUSHER_IN,
   CRUSHER_OUT
 );
 var vcf1 = new VCF(
+  "vcf 1",
   VCF1_CV,
   VCF1_IN,
   VCF1_OUT
 );
 var delay = new Delay(
+  "delay",
   DELAY_IN,
   DELAY_OUT
 );
 var quantizer = new Quantizer(
+  "quantizer",
   QUANTIZER_IN,
   QUANTIZER_OUT
 );
 var lfo1 = new LFO(
+  "lfo 1",
   LFO1_CV,
   LFO1_SQUARE,
   LFO1_SINE
 );
 var lfo2 = new LFO(
+  "lfo 2",
   LFO2_CV,
   LFO2_SQUARE,
   LFO2_SINE
 );
 var sequencer = new Sequencer(
+  "sequencer",
   SEQUENCER_CV,
   SEQUENCER_GATE
 );
 var vca1 = new VCA(
+  "vca 1",
   VCA1_CV1,
   VCA1_CV2,
   VCA1_IN,
   VCA1_OUT
 );
 var adsr1 = new ADSR(
+  "adsr 1",
   ADSR1_GATE,
   ADSR1_OUT
 );
 var mixer1 = new Mixer(
+  "mixer 1",
   MIXER1_IN1,
   MIXER1_IN2,
   MIXER1_IN3,
   MIXER1_OUT
 );
 var keyboard = new Keyboard(
+  "keyboard",
   MIDI_CV,
   MIDI_GATE
 );
-var out = new Output(OUTPUT_IN);
+var out = new Output("output", OUTPUT_IN);
 
 for(var i = 0; i < Module.allModules.length; i ++) {
   //GUI.gui.addModule(Module.allModules[i]);

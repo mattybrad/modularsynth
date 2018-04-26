@@ -1,6 +1,6 @@
 class Delay extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     this.inputNode = actx.createGain();
     this.outputNode = actx.createGain();

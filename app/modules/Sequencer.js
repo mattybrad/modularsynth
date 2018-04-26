@@ -1,6 +1,6 @@
 class Sequencer extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     this.steps = [0.3,0.35,0.4,0.42];
     this.currentStep = 0;

@@ -1,6 +1,6 @@
 class VCA extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var gainNode = actx.createGain();
     gainNode.gain.value = 0;

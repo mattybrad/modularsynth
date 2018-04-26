@@ -1,6 +1,6 @@
 class Keyboard extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var cvNode = actx.createGain();
     this.cvNode = cvNode;

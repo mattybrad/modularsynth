@@ -1,6 +1,6 @@
 class ADSR extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     this.gateOpen = false;
 

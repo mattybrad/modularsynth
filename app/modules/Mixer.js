@@ -1,6 +1,6 @@
 class Mixer extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var gainNode1 = actx.createGain();
     gainNode1.gain.value = 0;

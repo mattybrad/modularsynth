@@ -1,6 +1,6 @@
 class LFO extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var frequencyNode = actx.createConstantSource();
     frequencyNode.start();

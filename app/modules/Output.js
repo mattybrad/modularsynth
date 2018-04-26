@@ -1,6 +1,6 @@
 class Output extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var attenuator = actx.createGain();
     attenuator.gain.value = 0.1;

@@ -1,6 +1,6 @@
 class Noise extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var bufferSize = 2 * actx.sampleRate;
     var bufferSource = actx.createBufferSource();

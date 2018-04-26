@@ -1,6 +1,6 @@
 class SampleAndHold extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     this.sampleNextUpdate = false;
     this.gateOpen = false;

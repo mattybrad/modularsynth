@@ -10,8 +10,8 @@
 */
 
 class VCO extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var cvAdjustmentNode = actx.createScriptProcessor(1024, 1, 1);
     cvAdjustmentNode.onaudioprocess = function(ev) {

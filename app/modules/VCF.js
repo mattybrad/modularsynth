@@ -1,6 +1,6 @@
 class VCF extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     var filterNode = actx.createBiquadFilter();
 

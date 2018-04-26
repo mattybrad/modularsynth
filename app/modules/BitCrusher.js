@@ -1,6 +1,6 @@
 class BitCrusher extends Module {
-  constructor(...pins) {
-    super(...pins);
+  constructor(moduleLabel, ...pins) {
+    super(moduleLabel, ...pins);
 
     this.rateControl = 0;
     this.resolutionControl = 1;
