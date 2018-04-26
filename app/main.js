@@ -111,6 +111,7 @@ if(useArduino) {
   lfo1.controls[0].value = 0.3;
 }
 
+var badConnectionsHappening = false;
 function updateConnections(data) {
   var i,j;
   var connectionsToBreak = Socket.getConnections();
@@ -123,7 +124,11 @@ function updateConnections(data) {
       c[1] = parseInt(c[1]);
 
       res = Socket.testConnection(c[0],c[1]);
-      if(!res.valid) allValid = false;
+      if(!res.valid) {
+        allValid = false;
+        if(!badConnectionsHappening) document.getElementById('hackerConsole').innerHTML += "bad connection! check wiring<br/>";
+        badConnectionsHappening = true;
+      }
       else if(!res.exists) {
         Socket.makeConnection(res.out, res.in);
         document.getElementById('hackerConsole').innerHTML += res.out + " connected to " + res.in + "<br/>";
@@ -145,6 +150,8 @@ function updateConnections(data) {
       }
     }
   }
+
+  if(allValid) badConnectionsHappening = false;
 }
 
 function updateControls(data) {
