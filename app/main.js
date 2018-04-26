@@ -126,6 +126,7 @@ function updateConnections(data) {
       if(!res.valid) allValid = false;
       else if(!res.exists) {
         Socket.makeConnection(res.out, res.in);
+        document.getElementById('hackerConsole').innerHTML += res.out + " connected to " + res.in + "<br/>";
       } else {
         // if connection already existed and still exists, remove it from connectionsToBreak
         var connectionIndex = connectionsToBreak[res.out].indexOf(res.in);
@@ -140,6 +141,7 @@ function updateConnections(data) {
     if(connectionsToBreak[i]) {
       for(j = 0; j < connectionsToBreak[i].length; j++) {
         Socket.breakConnection(i, connectionsToBreak[i][j]);
+        document.getElementById('hackerConsole').innerHTML += i + " disconnected from " + connectionsToBreak[i][j] + "<br/>";
       }
     }
   }
