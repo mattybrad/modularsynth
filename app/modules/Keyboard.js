@@ -32,6 +32,7 @@ class Keyboard extends Module {
         cvNode.gain.value = outputValue;
         if(keysDown.indexOf(keyIndex)==-1) {
           keysDown.push(keyIndex);
+          document.getElementById('hackerConsole').innerHTML += "played the '" + ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#','A','A#','B','C','C#','D','D#','E','F','F#','G','G#'][keyIndex] + "' key<br/>";
         }
       }
     })
