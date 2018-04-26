@@ -7,11 +7,11 @@ class SocketGUI {
   }
 
   draw() {
-    // this.ctx.fillStyle = '#333333';
-    // this.ctx.beginPath();
-    // var radius = 10;
-    // this.ctx.arc(this.x+radius, this.y + radius, radius, 0, 2 * Math.PI);
-    // this.ctx.fill();
-    // this.ctx.fillText(this.label, this.x, this.y + 30);
+    //this.ctx.fillStyle = '#333333';
+    //this.ctx.beginPath();
+    //var radius = 10;
+    //this.ctx.arc(this.x+radius, this.y + radius, radius, 0, 2 * Math.PI);
+    //this.ctx.fill();
+    //this.ctx.fillText(this.label, this.x, this.y + 30);
   }
 }

@@ -14,10 +14,10 @@ class ModuleGUI extends Phaser.Group {
   }
 
   draw() {
-    // this.ctx.fillStyle = '#CCFFCC';
-    // this.ctx.fillRect(this.x,0,this.width - 2,600);
-    // for(var i = 0; i < this.module.sockets.length; i ++) {
-    //   this.sockets[i].draw();
-    // }
+    //this.ctx.fillStyle = '#CCFFCC';
+    //this.ctx.fillRect(this.x,0,this.width - 2,600);
+    for(var i = 0; i < this.module.sockets.length; i ++) {
+      this.sockets[i].draw();
+    }
   }
 }

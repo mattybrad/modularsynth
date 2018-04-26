@@ -76,8 +76,9 @@ var keyboard = new Keyboard(
 var out = new Output(OUTPUT_IN);
 
 for(var i = 0; i < Module.allModules.length; i ++) {
-  GUI.gui.addModule(Module.allModules[i]);
+  //GUI.gui.addModule(Module.allModules[i]);
 }
+//GUI.gui.draw();
 
 var connection = new WebSocket('ws://localhost:3001', ['soap', 'xmpp']);
 

@@ -78,8 +78,8 @@ void loop() {
               if(abs(analogRead(m) - allKnobs[m*8+k]) > 5) {
                 allKnobs[m*8+k] = analogRead(m);
                 if((m*8+k<20||m*8+k>23)&&m*8+k<36) {
-                  Serial.print("KNOB CHANGED: ");
-                  Serial.println(m*8+k);
+                  //Serial.print("KNOB CHANGED: ");
+                  //Serial.println(m*8+k);
                 }
               }
             }
@@ -90,6 +90,6 @@ void loop() {
     }
   }
   Serial.println(connectionData);
-  delay(100);
+  delay(1000);
 
 }

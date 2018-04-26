@@ -18,7 +18,7 @@ class GUI {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
+    //this.ctx.clearRect(0, 0, this.cvs.width, this.cvs.height);
     for(var i = 0; i < this.modules.length; i ++) {
       this.modules[i].draw();
     }
@@ -29,7 +29,7 @@ class GUI {
   }
 
   create() {
-    
+
   }
 
   update() {
