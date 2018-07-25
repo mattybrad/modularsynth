@@ -140,13 +140,13 @@ function updateConnections(data) {
       res = Socket.testConnection(c[0],c[1]);
       if(!res.valid) {
         allValid = false;
-        if(!badConnectionsHappening) document.getElementById('hackerConsole').innerHTML += "bad connection! check wiring<br/>";
+        if(!badConnectionsHappening) addHackerConsoleLog("bad connection! check wiring","red");
         badConnectionsHappening = true;
       }
       else if(!res.exists) {
         Socket.makeConnection(res.out, res.in);
         console.log(Socket._sockets);
-        document.getElementById('hackerConsole').innerHTML += Socket.getSocketFromPin(res.out).label + " connected to " + Socket.getSocketFromPin(res.in).label + "<br/>";
+        addHackerConsoleLog(Socket.getSocketFromPin(res.out).label + " connected to " + Socket.getSocketFromPin(res.in).label, "#0F0");
       } else {
         // if connection already existed and still exists, remove it from connectionsToBreak
         var connectionIndex = connectionsToBreak[res.out].indexOf(res.in);
@@ -161,12 +161,18 @@ function updateConnections(data) {
     if(connectionsToBreak[i]) {
       for(j = 0; j < connectionsToBreak[i].length; j++) {
         Socket.breakConnection(i, connectionsToBreak[i][j]);
-        document.getElementById('hackerConsole').innerHTML += Socket.getSocketFromPin(i).label + " disconnected from " + Socket.getSocketFromPin(connectionsToBreak[i][j]).label + "<br/>";
+        addHackerConsoleLog(Socket.getSocketFromPin(i).label + " disconnected from " + Socket.getSocketFromPin(connectionsToBreak[i][j]).label, "#666");
       }
     }
   }
 
-  if(allValid) badConnectionsHappening = false;
+  if(allValid) {
+    if(badConnectionsHappening) {
+      // bad connections were happening but not any more!
+      addHackerConsoleLog("bad connection fixed :)","#FFF");
+    }
+    badConnectionsHappening = false;
+  }
 }
 
 function updateControls(data) {
@@ -250,4 +256,10 @@ function updateControls(data) {
       }
     }
   }
+}
+
+function addHackerConsoleLog(message, color) {
+  var thisHTML = "<span style=\"color:"+color+"\">"+message+"</span><br/>";
+  document.getElementById('hackerConsole').innerHTML += thisHTML;
+  window.scrollTo(0,document.body.scrollHeight);
 }
